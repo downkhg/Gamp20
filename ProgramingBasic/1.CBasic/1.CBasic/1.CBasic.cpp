@@ -11,17 +11,28 @@ void CircleAreaMain()
 	//3.원의 넓이를 반지름*반지름*3.14을 이용하여 구한다.
 	//4.원의 넓이를 출력한다.
 	float radius = 1;//F9:중단점설정
-	float pi = 3.14;
+	const float pi = 3.14;//const: 컴파일러야 내가 실수하면 니가 알려줘
+	
 	float area = radius * radius * pi;
 	printf("Area:%f\n",area);
+}
+//변수 x와 각 데이터형의 크기를 출력하는 프로그램
+void SizeMain()
+{
+	int x;
+	printf("x:%d\n",sizeof(x));
+	printf("char:%d\n", sizeof(char));
+	printf("int:%d\n", sizeof(int));
+	printf("float:%d\n", sizeof(float));
+	printf("double:%d\n", sizeof(double));
 }
 
 void main()
 {
 	//주석: 컴파일러가 분석하지않는 문장.
 	//ctrl+f5: 컴파일(빌드)+디버그없이 실행하기
-	printf("Hello Wolrd!\n");//\n:줄바꿈문자.
-	printf("khg");//;(세미콜론) 문장끝을 나타내는 기호
-
-	CircleAreaMain();
+	//printf("Hello Wolrd!\n");//\n:줄바꿈문자.
+	//printf("khg");//;(세미콜론) 문장끝을 나타내는 기호
+	//CircleAreaMain();
+	SizeMain();
 }
