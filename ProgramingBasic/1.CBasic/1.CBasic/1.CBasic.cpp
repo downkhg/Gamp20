@@ -31,16 +31,53 @@ void SizeMain()
 //아스키(ASCII)코드: 미국표준코드, 영어나 특수문자만 나타낼수있음. 0~255까지의 숫자에 문자가 대치됨.
 void CharMain()
 {
-	int nDataA = 'A';
-	char cDataA = 'A';
+	int nDataA = '1';
+	char cDataA = 1;
 
 	printf("nDataA:%c,%d\n", nDataA, nDataA);
 	printf("cDataA:%c,%d\n", cDataA, cDataA);
 }
-
+//태양과 지구사이의 거리가 주어졌을때, 빛이 지구에 도달하는 시간(초)(분)
+//빛속도: 30만 km/s
+//태양과 지구사이거리: 14960만 km
+// _
+// ________________________________
+//데이터:빛의속도,태양과지구사이거리,시간(초) -> 변수: int
+//알고리즘: 태양과지구사이거리/빛의속도 = 시간
+//나누기를 할때는 나누어 떨어지지 않을수있으므로 실수를 사용하는 것이 좋다.
 void LightSpeedMain()
 {
+	int nLighitSpeed = 30;
+	int nDistance = 14960;
+	int nSec = 14960/30;
+	printf("%d s\n",nSec);
+	printf("%f m\n", (float)nSec/60.0f);//타입변환(캐스팅)
+	printf("%d m %ds\n",nSec/60, nSec%60);
+	int nSec2 = nSec / 60;
+	printf("%d m %ds\n", nSec / 60, nSec - (nSec2 * 60));
+}
 
+void OpMain()
+{
+	int nDataA = 10; //10
+	int nDataB = 20; //20
+
+	int nDataC = nDataA++; //10=10 -> 11
+	int nDataD = --nDataB;
+
+	printf("A/C:%d/%d\n",nDataA,nDataC);
+	printf("B/D:%d/%d\n", nDataB, nDataD);
+}
+
+void BitmaskMain()
+{
+	unsigned int  color = 0x00385555;
+	unsigned int result;
+	printf("PixelColor:%#08x\n", color);
+	result = color & 0x00ff00ff;
+	printf("MaskColor: %#08x\n", result);
+	result = result >> 16;
+	printf("result>>16:%#08x\n", result);
 }
 
 void main()
@@ -51,5 +88,8 @@ void main()
 	//printf("khg");//;(세미콜론) 문장끝을 나타내는 기호
 	//CircleAreaMain();
 	//SizeMain();
-	CharMain();
+	//CharMain();
+	//LightSpeedMain();
+	BitmaskMain();
+	//OpMain();
 }
