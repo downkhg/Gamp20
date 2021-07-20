@@ -79,6 +79,68 @@ void BitmaskMain()
 	result = result >> 16;
 	printf("result>>16:%#08x\n", result);
 }
+//점수를 입력받아 학점을 계산하는 프로그램.
+//(단, 90점이상 A, 80이상 90미만 B, 70이상 80미만 C, 60이상 70미만 D, 60이하 F)
+//데이터: 점수, 학점
+//알고리즘:  90점이상 A, 80이상 90미만 B, 70이상 80미만 C, 60이상 70미만 D, 60이하 F
+void ScoreCheckMain()
+{
+	int nSocore;
+	char cGrade;
+	printf("Score:");
+	scanf("%d", &nSocore);//100
+
+	//if문을 활용하면 모든조건을 비교해야하지만, if els문은 연산량이 적다.
+	/*
+	if (nSocore >= 90)
+	{
+		cGrade = 'A';
+	}
+	if (nSocore >= 80 && nSocore < 90)
+	{
+		cGrade = 'B';
+	}
+	if (nSocore >= 70 && nSocore < 80)
+	{
+		cGrade = 'C';
+	}
+	if (nSocore >= 60 && nSocore < 70)
+	{
+		cGrade = 'D';
+	}
+	if (nSocore < 60)
+	{
+		cGrade = 'F';
+	}*/
+	if (nSocore >= 90)//100 >= 90 => T
+	{
+		cGrade = 'A';
+	}
+	else if (nSocore >= 80)
+	{
+		cGrade = 'B';
+	}
+	else if (nSocore >= 70)
+	{
+		cGrade = 'C';
+	}
+	else if (nSocore >= 60)
+	{
+		cGrade = 'D';
+	}
+	else if (nSocore < 60)
+	{
+		cGrade = 'F';
+	}
+	printf("Grade:%c/%d\n",cGrade,nSocore);
+}
+//계산할 변수와 연산은 입력을 통해 계산 방법을 바꿀수있는 계산기(사칙연산)
+//Input: 1+1
+//output: 1+1=2
+void CalMain()
+{
+
+}
 
 void main()
 {
@@ -90,6 +152,7 @@ void main()
 	//SizeMain();
 	//CharMain();
 	//LightSpeedMain();
-	BitmaskMain();
+	//BitmaskMain();
 	//OpMain();
+	ScoreCheckMain();
 }
