@@ -185,6 +185,44 @@ void CalMain()
 	//}
 	printf("%d%c%d = %d\n", nInputA, cInputOp, nInputB, nResult);
 }
+//마일을 메터로 변경하여 0~2마일까지 출력하는 프로그램
+//1마일은 1609미터다. 
+//데이터: 마일,미터
+//알고리즘: 0~2마일까지 출력
+//while문이용시
+//1.반복문과 상관없이 코드를 반복한다.
+//2.반복문에 공통적인 규칙을 찾아 무한루프를 만든다.
+//3.무한루프에 적절한 위치에서 탈출조건에 break문을 넣는다.
+//4.무한루프의 조건으로 탈출조건의 반대조건을 넣는다.
+void MailToMetaMain()
+{
+	int nMail;//?
+	int nMeter;//?
+	nMail = 0; //0
+	//while (true)
+	while(nMail <= 2)
+	{
+		// 0 = 0 * 1609 // 1609= 1*1609 // 3218=2*1609 //4827=3*1609
+		nMeter = nMail * 1609;
+		printf("Mail to Metter:%d -> %d\n", nMail, nMeter);//0,0 //1,1609 //2, 3218// 3, 4827
+		//0>2->F //1>2->F //2>2->F //3>2->T
+		//if (nMail > 2) break;
+		nMail++;//0++ = 1 //1++ = 2 //2++ = 3
+	}
+	//for문은 특별한 조건없이 횟수가 반복될때 사용된다.
+	for (nMail = 0; nMail < 3; nMail++)
+	{
+		nMeter = nMail * 1609;
+		printf("Mail to Metter:%d -> %d\n", nMeter, nMeter);
+	}
+	/*nMail = 1;
+	nMeter = nMail * 1609;
+	printf("Mail to Metter:%d -> %d\n", nMeter, nMeter);
+
+	nMail = 2;
+	nMeter = nMail * 1609;
+	printf("Mail to Metter:%d -> %d\n", nMeter, nMeter);*/
+}
 
 void main()
 {
@@ -198,5 +236,6 @@ void main()
 	//LightSpeedMain();
 	//BitmaskMain();
 	//OpMain();
-	ScoreCheckMain();
+	//ScoreCheckMain();
+	MailToMetaMain();
 }
