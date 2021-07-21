@@ -92,23 +92,23 @@ void ScoreCheckMain()
 
 	//if문을 활용하면 모든조건을 비교해야하지만, if els문은 연산량이 적다.
 	/*
-	if (nSocore >= 90)
+	if (nSocore >= 90) //90 T
 	{
 		cGrade = 'A';
 	}
-	if (nSocore >= 80 && nSocore < 90)
+	if (nSocore >= 80 && nSocore < 90) //90 F
 	{
 		cGrade = 'B';
 	}
-	if (nSocore >= 70 && nSocore < 80)
+	if (nSocore >= 70 && nSocore < 80)//90 F
 	{
 		cGrade = 'C';
 	}
-	if (nSocore >= 60 && nSocore < 70)
+	if (nSocore >= 60 && nSocore < 70)//90 F
 	{
 		cGrade = 'D';
 	}
-	if (nSocore < 60)
+	if (nSocore < 60)//90 F
 	{
 		cGrade = 'F';
 	}*/
@@ -137,9 +137,53 @@ void ScoreCheckMain()
 //계산할 변수와 연산은 입력을 통해 계산 방법을 바꿀수있는 계산기(사칙연산)
 //Input: 1+1
 //output: 1+1=2
+//데이터: 계산값2개,결과값,연산(정수,문자),
+//알고리즘: 연산된 값에 따라 두입력값을 계산한다.
 void CalMain()
 {
-
+	int nInputA;
+	int nInputB;
+	int nResult;
+	char cInputOp;
+	printf("ex)1+1\n");
+	scanf("%d%c%d",&nInputA,&cInputOp,&nInputB);
+	if (cInputOp == '+')
+	{
+		nResult = nInputA + nInputB;
+	}
+	else if (cInputOp == '-')
+	{
+		nResult = nInputA - nInputB;
+	}
+	else if (cInputOp == '*')
+	{
+		nResult = nInputA * nInputB;
+	}
+	else if (cInputOp == '/')
+	{
+		nResult = nInputA / nInputB;
+	}
+	else
+		printf("!?!?!?!?!?!\n");
+	//switch (cInputOp)//+
+	//{
+	//case '+':
+	//	nResult = nInputA + nInputB;// 2=1+1
+	//	break;
+	//case '-':
+	//	nResult = nInputA - nInputB;
+	//	break;
+	//case '*':
+	//	nResult = nInputA * nInputB;
+	//	break;
+	//case '/':
+	//	nResult = nInputA / nInputB;
+	//	break;
+	//default:
+	//	printf("!?!?!?!?!?!\n");
+	//	break;
+	//}
+	printf("%d%c%d = %d\n", nInputA, cInputOp, nInputB, nResult);
 }
 
 void main()
