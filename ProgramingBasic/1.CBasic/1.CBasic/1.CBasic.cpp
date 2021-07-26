@@ -223,6 +223,119 @@ void MailToMetaMain()
 	nMeter = nMail * 1609;
 	printf("Mail to Metter:%d -> %d\n", nMeter, nMeter);*/
 }
+//박테리아가 두배씩 늘어날때 160마리 이상될때는 몇시간 후인가?
+void BateriaMain()
+{
+	int nBateria = 10; //10
+	int nTime = 0; //0
+
+	//while (true)
+	while(nBateria < 160)
+	{
+		nBateria = nBateria * 2;//20
+		nTime++;
+		printf("Bateria:%d Time:%d\n", nBateria, nTime);
+		//if (nBateria >= 160) break;
+	}
+
+	//nBateria = nBateria * 2;//20
+	//nTime = 1;
+
+	//nBateria = nBateria * 2;//40
+	//nTime = 2;
+
+	//nBateria = nBateria * 2;//80
+	//nTime = 3;
+
+	//nBateria = nBateria * 2;//160
+	//nTime = 4;
+
+	printf("Time:%d\n", nTime);
+}
+
+//종이를 접으면 (면적)이 (1/2로 줄어)들때,
+//(종이면적이 1/10이하)로 줄어들려면, (몇번접)아야하는가?
+//데이터: 종이의면적,접은횟수
+//알고리즘: 종이를 접어서 면적이 10%남으려면 몇번 접어야하는가?
+void PaperAreaMain()
+{
+	float fPaperArea = 100; //100
+	float fMinPaperArea = fPaperArea * 0.1;
+	int nCount = 0; //0
+
+	while (true)
+	{
+		fPaperArea = fPaperArea * 0.5; //50 = 100*0.5 //25 = 50 * 0.5 
+		nCount++;//1 
+		printf("PaperArea:%f\n", fPaperArea, nCount);//50,1 
+
+		if (fPaperArea <= fMinPaperArea) break;  //50, 5 //25, 2.5
+	}
+	
+}
+
+//반감기: 방사능물질의양이 1/2가 되는 시간
+//방사능 물질의 양이 2000년이 지난후 물질의 양은?
+//반감기:400년
+//방사능물질의양: 100
+//데이터: 반감기, 방사능물질의양, 지난햇수 
+//알고리즘: 남은 물질의양 = 물질양이 2000년후에는 어떻게되는가?
+void HalfLifeForMain()
+{
+	int nHalfLife = 400;
+	float fQuantity = 100;
+	int nYear = 0; 
+	//for문이용할때는 흐름보다, 반복하는 조건과 값을 보고 사용하는 것이 좋다. -> 적절하지않음.
+	                //1.0 <= 2000 -> T //400
+					//2.400 <= 2000 -> T //800
+					//3.800 <= 2000 -> T //1200
+					//4.1200 <= 2000 -> T //1600
+					//5.1600 <= 2000 -> T //2000
+					//6.2000 <= 2000 -> T //2400
+					//7.2400 <= 2000 -> F
+	for (nYear = 0; nYear <= 2000; nYear += 400)
+	{
+		fQuantity = fQuantity * 0.5f;//1.50=100*0.5f //2.50*0.5f = 25 //3.25*0.5f = 12.5 //4.12.5*0.5 = 6.25 //5.6.25*0.5f=3.125  //6. 1.5625 = 3.125 * 0.5 
+		printf("Quantity:%f, Year:%d, HalfLife:%d\n", fQuantity, nYear, nHalfLife);
+	}
+
+	printf("Quantity:%f\n", fQuantity);
+}
+
+/* 다음모양을 출력하라.
+해당모양의 이름의 함수안에 조건만 변경하여 해당모양이 출력되도록만들기
+Full    Rect   Window Stair
+y01234x
+0#####  #####  #####  #
+1#####  #   #  # # #  ##
+2#####  #   #  #####  ###
+3#####  #   #  # # #  ####
+4#####  #####  #####  ##### */
+//1.규칙을 찾는다.
+//Rect(y,x) (1,1)(1,2)(1,3) (2,1)(2,2)(2,3) (3,1)(3,2)(3,3) 1~3
+//Window  (1,1)(1,3) (3,1)(3,3) -> 홀수
+//Stair '#' (0,0) (1,0)(1,1) (2,0)(2,1)(2,2) 
+//		    (3,0)(3,1)(3,2)(3,3) (4,0)(4,1)(4,2)(4,3)
+//2.규칙대로 조건을 모두 준다.
+//
+//3.규칙에서 줄일만한 부분이 없는지 찾는다.
+//※Stair는 (조건문없이가능) -> y가 증가할때마다 x의 값이 증가한다.
+void RectMain()
+{
+	for (int y = 0; y < 5; y++) //(?,0) //(?,1) //(?,2)//(?,3)//(0,4)
+	{
+		//(0,0),(1,0),(2,0),(3,0),(4,0)\n
+		//(0,1),(1,1),(2,1),(3,1),(4,1)\n
+		//(0,2),(1,2),(2,2),(3,2),(4,2)\n
+		//(0,3),(1,3),(2,3),(3,3),(4,3)\n
+		//(0,4),(1,4),(2,4),(3,4),(4,4)\n
+		for (int x = 0; x < 5; x++)
+		{
+			printf("#");
+		}
+		printf("\n");
+	}
+}
 
 void main()
 {
@@ -237,5 +350,9 @@ void main()
 	//BitmaskMain();
 	//OpMain();
 	//ScoreCheckMain();
-	MailToMetaMain();
+	//MailToMetaMain();
+	//BateriaMain()
+	//PaperAreaMain();
+	//HalfLifeForMain();
+	RectMain();
 }
