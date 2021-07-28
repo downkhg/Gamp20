@@ -22,8 +22,8 @@ void AddTestMain()
 }
 
 //함수의 선언:이런함수가 있다는것을 미리 컴파일러에게 알림.
-int combination(int n, int r);
-int factorial(int n);
+int Combination(int n, int r);
+int Factorial(int n);
 
 int CombinationTestMain(void)
 {
@@ -31,11 +31,11 @@ int CombinationTestMain(void)
 
 	scanf("%d", &a);
 	scanf("%d", &b);
-	printf("C(%d, %d) = %d \n", a, b, combination(a, b));
+	printf("C(%d, %d) = %d \n", a, b, Combination(a, b));
 	return 0;
 }
 //함수의 정의:선언한 함수의 실체를 만듦.
-int factorial(int n)
+int Factorial(int n)
 {
 	int i;
 	long result = 1;
@@ -45,11 +45,11 @@ int factorial(int n)
 	return result;
 }
 
-int combination(int n, int r)
+int Combination(int n, int r)
 {
-	int a = factorial(n);
-	int b = factorial(r);
-	int c = factorial(n - r);
+	int a = Factorial(n);
+	int b = Factorial(r);
+	int c = Factorial(n - r);
 	return (a / b * c);
 }
 

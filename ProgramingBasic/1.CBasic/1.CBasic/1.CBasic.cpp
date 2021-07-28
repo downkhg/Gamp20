@@ -354,5 +354,5 @@ void main()
 	//BateriaMain()
 	//PaperAreaMain();
 	//HalfLifeForMain();
-	RectMain();
+	RectMain();//함수의호출
 }
