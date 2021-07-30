@@ -27,9 +27,31 @@ void CountDataMain()
 	//printf("CountDataMain::nData:%d\n", nData); //
 }
 
+//extern: 선언된 변수나 함수가 이파일이 아닌 다른곳에 정의되어있다.
+extern int g_nDataEx; 
+extern int g_nStaticDataEx;
+
+extern void PrintDataEx();
+extern void PrintStaticDataEx();
+
+extern void SetStaticDataEx(int data);
+
+void StatcGrobalValueMain()
+{
+	g_nDataEx = 10;
+	PrintDataEx();
+
+	//g_nStaticDataEx = 20; //정적전역변수: 해당파일에서만 접근가능하다.
+	//SetStaticDataEx(20); //정적함수: 해당파엘에서만 접근가능한 함수.
+	PrintStaticDataEx();
+}
+
 void main()//1
 {
-	CountDataMain(); //2
+	//CountDataMain(); //2
 	printf("main::g_nData:%d:\n", g_nData); //24. 3
+	StatcGrobalValueMain();
+	//void (*pF)() = StatcGrobalValueMain;
+	//printf("FunctionPtr:%d\n",pF);
 }
 

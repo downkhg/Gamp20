@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{332a8609-0464-426b-b441-deb740207fd5}</ProjectGuid>
-    <RootNamespace>My3FunctionAndValue</RootNamespace>
+    <ProjectGuid>{b34a1962-0e78-4296-a192-851846081265}</ProjectGuid>
+    <RootNamespace>My4ArrayAndPointer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,8 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="3.FunctionAndValue.cpp" />
-    <ClCompile Include="Linkage.cpp" />
+    <ClCompile Include="4.ArrayAndPointer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
