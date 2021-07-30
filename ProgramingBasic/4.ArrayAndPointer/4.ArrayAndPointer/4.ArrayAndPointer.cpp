@@ -32,12 +32,12 @@ void ArrayMain()
 //첫번째값을 저장하고, 저장된값보다 다음 값이 작으면 값을 최소값으로 교채한다.
 void ArrayFindMinDataMain()
 {
-	int arrData[5] = { 10,20,30,60,70 };
+	int arrData[5] = { 30,40,50,10,20 };
 	int nMin = arrData[0];
 
 	for(int i = 0; i<5; i++)
 	{
-		if (nMin < arrData[i])
+		if (nMin > arrData[i])
 		{
 			nMin = arrData[i];
 		}
@@ -45,7 +45,30 @@ void ArrayFindMinDataMain()
 	printf("Min:%d\n",nMin);
 }
 
+void PointerMain()
+{
+	int nData = 10;
+	int* pData = &nData;
+	printf("1.nData:%d/%d\n",&nData,nData);
+	printf("1.pData:%d/%d\n", pData, *pData);
+	nData = 20;
+	printf("2.nData:%d/%d\n", &nData, nData);
+	printf("2.pData:%d/%d\n", pData, *pData);
+	*pData = 30;
+	printf("3.nData:%d/%d\n", &nData, nData);
+	printf("3.pData:%d/%d\n", pData, *pData);
+	pData++;
+	printf("4.nData:%d/%d\n", &nData, nData);
+	printf("4.pData:%d/%d\n", pData, *pData);
+	pData--;
+	printf("5.nData:%d/%d\n", &nData, nData);
+	printf("5.pData:%d/%d\n", pData, *pData);
+
+}
+
 void main()
 {
-	ArrayMain();
+	//ArrayMain();
+	//ArrayFindMinDataMain();
+	PointerMain();
 }
