@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 void ArrayMain()
 {
@@ -66,9 +67,80 @@ void PointerMain()
 
 }
 
+void SwapVal(int a, int b)
+{
+	printf("SwapVal[%d]%d<->[%d]%d\n",&a,a,&b,b);
+	int temp = a;
+	a = b;
+	b = temp;
+}
+void SwapPtr(int* pA, int* pB)
+{
+	printf("SwapVal[%d]%d<->[%d]%d\n", pA, *pA, pB, *pB);
+	int temp = *pA;
+	*pA = *pB;
+	*pB = temp;
+}
+void SwapRef(int& a, int& b)
+{
+	printf("SwapRef[%d]%d<->[%d]%d\n", &a, a, &b, b);
+	int temp = a;
+	a = b;
+	b = temp;
+}
+void FunctionAndPointerMain()
+{
+	int nDataA = 10;
+	int nDataB = 20;
+	printf("Origin[%d]%d<->[%d]%d\n",&nDataA,nDataA,&nDataB,nDataB);
+	SwapVal(nDataA, nDataB);
+	printf("SwapVal[%d]%d<->[%d]%d\n", &nDataA, nDataA, &nDataB, nDataB);
+	SwapPtr(&nDataA, &nDataB);
+	printf("SwapPtr[%d]%d<->[%d]%d\n", &nDataA, nDataA, &nDataB, nDataB);
+	SwapRef(nDataA, nDataB);
+	printf("SwapRef[%d]%d<->[%d]%d\n", &nDataA, nDataA, &nDataB, nDataB);
+}
+
+void ArrayAndPointerMain()
+{
+	const int nSize = 3;
+	int arrScores[nSize];
+	int nMemorySize = sizeof(arrScores);
+	int nArraySize = nMemorySize / sizeof(arrScores[0]);
+	printf("MemorySize/ArraySize:%d/%d\n", nMemorySize, nArraySize);
+	printf("arrScore[%d]%d\n", &arrScores, arrScores);
+	for (int i = 0; i < nArraySize; i++)
+		arrScores[i] = i * 100 - i * 10;
+	printf("\n");
+	for (int i = 0; i < nArraySize; i++)
+		printf("[%d/%d]%d,", &arrScores[i], i, arrScores[i]);
+	printf("\n");
+
+	for (int i = 0; i < nArraySize; i++)
+		printf("[%d/%d]%d,", (arrScores + i), i, *(arrScores + i));
+	printf("\n");
+
+	int* pScore = arrScores;
+	for (int i = 0; i < nArraySize; i++)
+	{
+		printf("[%d/%d]%d,", pScore, i, *pScore);
+		pScore++;
+	}
+	printf("\n");
+
+	int arrCopyScore[nSize];
+	//arrCopyScore = arrScores;
+	printf("Score/CopyScore:%d/%d\n", arrCopyScore, arrScores);
+	for (int i = 0; i < nSize; i++)
+		arrCopyScore[i] = arrScores[i];
+	memcpy(arrCopyScore, arrScores, sizeof(arrCopyScore));
+}
+
 void main()
 {
 	//ArrayMain();
 	//ArrayFindMinDataMain();
-	PointerMain();
+	//PointerMain();
+	//FunctionAndPointerMain();
+	ArrayAndPointerMain();
 }
