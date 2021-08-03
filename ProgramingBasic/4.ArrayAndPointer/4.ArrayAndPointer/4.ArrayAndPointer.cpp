@@ -135,12 +135,96 @@ void ArrayAndPointerMain()
 		arrCopyScore[i] = arrScores[i];
 	memcpy(arrCopyScore, arrScores, sizeof(arrCopyScore));
 }
-
+//함수를 매개변수로 전달할때 배열의 이름은 주소값을 가지므로 주소값이 전달된다.
+//그러므로, 원본을 변경가능하게된다.
+void InitArray(int arr[], int size)
+{
+	printf("InitArray[%d]:%d\n",size,arr);
+	for (int i = 0; i < size; i++)
+		arr[i] = 100 - i * 10;
+}
+void PrintArray(int arr[], int size)
+{
+	printf("PrintArray[%d]:%d\n", size, arr);
+	for (int i = 0; i < size; i++)
+		printf("[%d/%d]%d,", &arr[i], i, arr[i]);
+	printf("\n");
+}
+//배열대신 포인터를 매개변수로 써도 무관하다.
+void PrintArray(const int* arr, int size, const char* msg)
+{
+	printf("PrintArray[%d]:%d\n", size, arr);
+	printf("%s:",msg);
+	for (int i = 0; i < size; i++)
+		printf("[%d/%d]%d,", &arr[i], i, arr[i]);
+	printf("\n");
+}
+//const를 붙이면 원본의 값을 변경할수없으므로. 복사시 원본대상인지 구별하는 수단으로 사용가능하다.
+void CopyArray(int arrA[], const int arrB[], int size)
+{
+	printf("PrintArray[%d]:%d to %d\n", size, arrB, arrA);
+	for (int i = 0; i < size; i++)
+		arrA[i] = arrB[i];
+		//arrB[i] = arrA[i]; //컴파일오류
+}
+void ArrayAndFunctionMain()
+{
+	const int nSize = 3;
+	int arrScores[nSize];
+	int nMemorySize = sizeof(arrScores);
+	int nArraySize = nMemorySize / sizeof(arrScores[0]);
+	printf("MemorySize/ArraySize:%d/%d\n", nMemorySize, nArraySize);
+	printf("arrScore[%d]%d\n", &arrScores, arrScores);
+	InitArray(arrScores, nSize);//초기화
+	PrintArray(arrScores, nSize);//배열출력
+	PrintArray(arrScores, nSize, "PrintPtr");//포인터를 응용해도 다음과같이 활용가능하다.
+	int arrCopyScore[nSize];
+	printf("Score/CopyScore:%d/%d\n", arrCopyScore, arrScores);
+	CopyArray(arrCopyScore,arrScores, nSize);//배열복사
+}
+void Array2DMain()
+{
+	const int nWidth = 5;
+	const int nHeight = 3;
+	int arr2DArray[nHeight][nWidth];
+	int arrFake2DArray[nHeight * nWidth];
+	for (int y = 0; y < nHeight; y++)
+	{
+		for (int x = 0; x < nWidth; x++)
+		{
+			int idx = nWidth * y + x; //5*0+0 = 0 //5*1+0 = 5 //5*2+0=10
+			arrFake2DArray[idx] = x * y;
+			arr2DArray[y][x] = x * y;
+		}
+	}
+	printf("####### Array2D #######\n");
+	for (int y = 0; y < nHeight; y++)
+	{
+		printf("[%d]%d-",y,arr2DArray[y]);
+		for (int x = 0; x < nWidth; x++)
+		{
+			printf("%d[%d,%d]:%d, ", &arr2DArray[y][x], y, x, arr2DArray[y][x]);
+		}
+		printf("\n");
+	}
+	printf("####### ArrayFake2D #######\n");
+	for (int y = 0; y < nHeight; y++)
+	{
+		for (int x = 0; x < nWidth; x++)
+		{
+			int idx = nWidth * y + x;
+			printf("%d[%d,%d]:%d, ", &arrFake2DArray[idx], y, x, arrFake2DArray[idx]);
+		}
+		printf("\n");
+	}
+}
 void main()
 {
 	//ArrayMain();
 	//ArrayFindMinDataMain();
 	//PointerMain();
 	//FunctionAndPointerMain();
-	ArrayAndPointerMain();
+	//ArrayAndPointerMain();
+	//ArrayAndFunctionMain();
+	Array2DMain();
 }
