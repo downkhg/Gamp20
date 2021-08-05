@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 //문자열: 문자배열
 void StringTestMain()
 {
@@ -54,7 +55,8 @@ void InputIDMain()
 //A:GAME
 //데이터: 정답(문자열),입력값(문자),빈문자열(문자열)
 //알고리즘: 정답에 입력값이 있을때, 빈문자열에 채워넣는다.  정답과 빈문자열이 같으면 중단한다.
-//있을때? -> 찾기: 모든문자열에서 해당하는 값이 있는지 확인하기, 같으면? -> 빈문자열과 정답이 모든 배열의 값이 같아야한다.
+//있을때? -> 찾기: 모든문자열에서 해당하는 값이 있는지 확인하기, 
+//같으면? -> 빈문자열과 정답이 모든 배열의 값이 같아야한다.
 void HangMainMain()
 {
 	char strAnswer[32] = "GAME";
@@ -97,10 +99,35 @@ void HangMainMain()
 			break;
 	}
 }
+//(성:문자열)과 (이름:문자열)을 (합쳐서?) (전체이름:문자열)을 만드는 프로그램.
+void FullNameMain()
+{
+	char strLastName[128];// = "k";
+	char strFistName[128];// = "hg";
+	char strFullName[256] = ""; //초기화하지않으면 함수사용시 쓰레기값때문에 마지막에 값이 연결되거나 복사된다.
+
+	//strLastName = "k"; //배열이름은 포인터가 아님. 저장할수없음.
+	strcpy(strLastName, "k");
+	strcpy(strFistName, "hg");
+
+	printf("FullName:%s\n", strFullName);
+	strcat(strFullName, strFistName);
+	printf("FullName:%s\n", strFullName);
+	strcat(strFullName, strLastName);
+	printf("FullName:%s\n",strFullName);
+
+	sprintf(strFullName, "%s %s", strLastName, strFistName);
+
+	if (strcmp(strLastName, strFistName) == 0)
+		printf("%s == %s",strLastName,strFistName);
+	else
+		printf("%s != %s", strLastName, strFistName);
+}
 
 void main()
 {
 	//StringTestMain();
 	//InputIDMain();
-	HangMainMain();
+	//HangMainMain();
+	FullNameMain();
 }
