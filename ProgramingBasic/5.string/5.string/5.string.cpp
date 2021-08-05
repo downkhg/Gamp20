@@ -52,13 +52,55 @@ void InputIDMain()
 //Q:GA__
 //.........
 //A:GAME
+//데이터: 정답(문자열),입력값(문자),빈문자열(문자열)
+//알고리즘: 정답에 입력값이 있을때, 빈문자열에 채워넣는다.  정답과 빈문자열이 같으면 중단한다.
+//있을때? -> 찾기: 모든문자열에서 해당하는 값이 있는지 확인하기, 같으면? -> 빈문자열과 정답이 모든 배열의 값이 같아야한다.
 void HangMainMain()
 {
+	char strAnswer[32] = "GAME";
+	char strEmpty[32] = "____";
+	char cInput;
 
+	while (true)
+	{
+		printf("Q:%s\n", strEmpty);
+		scanf("%c", &cInput);
+
+		int nIdx = 0;
+		int nResultIdx = -1;
+		while (strAnswer[nIdx] != '\0')
+		{
+			if (strAnswer[nIdx] == cInput)
+			{
+				nResultIdx = nIdx;
+				break;
+			}
+			nIdx++;
+		}
+		if (nResultIdx > -1)
+		{
+			strEmpty[nResultIdx] = cInput;
+			printf("A:%s\n", strEmpty);
+		}
+		else
+			printf("not found!\n");
+		
+		int nMathCount = 0;
+		int nResultCount = 0;
+		for (nIdx = 0; strAnswer[nIdx] != '\0'; nIdx++)
+		{
+			if (strAnswer[nIdx] == strEmpty[nIdx])
+				nMathCount++;
+			nResultCount++;
+		}
+		if (nMathCount == nResultCount)
+			break;
+	}
 }
 
 void main()
 {
 	//StringTestMain();
-	InputIDMain();
+	//InputIDMain();
+	HangMainMain();
 }
