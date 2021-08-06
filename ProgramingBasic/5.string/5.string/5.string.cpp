@@ -62,7 +62,6 @@ void HangMainMain()
 	char strAnswer[32] = "GAME";
 	char strEmpty[32] = "____";
 	char cInput;
-
 	while (true)
 	{
 		printf("Q:%s\n", strEmpty);
@@ -118,16 +117,45 @@ void FullNameMain()
 
 	sprintf(strFullName, "%s %s", strLastName, strFistName);
 
-	if (strcmp(strLastName, strFistName) == 0)
-		printf("%s == %s",strLastName,strFistName);
+	int nResult = strcmp(strLastName, strFistName);
+	if (nResult == 0)
+		printf("%d: %s == %s",nResult,strLastName,strFistName);
 	else
-		printf("%s != %s", strLastName, strFistName);
+		printf("%d: %s != %s",nResult, strLastName, strFistName);
 }
+void HangMainLibraryMain()
+{
+	char strAnswer[32] = "GAME";
+	char strEmpty[32] = "____";
+	char cInput;
+	while (true)
+	{
+		printf("Q:%s\n", strEmpty);
+		scanf("%c", &cInput);
 
+		int nResultIdx = -1;
+		char* pResult = strchr(strAnswer, cInput);//찾은 문자열의 주소값을 반환한다.
+		if (pResult)
+		{
+			//찾은 문자열의주소에서 문자열시작주소를 빼서 현재 인덱스값을 계산한다.
+			nResultIdx = pResult - strAnswer;
+			printf("ResultIdx:%d\n",nResultIdx);
+		}
+		else
+			printf("not found!\n");
+
+		int nResult = strcmp(strAnswer, strEmpty);
+		if (nResult == 0)
+			break;
+		else
+			printf("strcmp:%d\n",nResult);
+	}
+}
 void main()
 {
 	//StringTestMain();
 	//InputIDMain();
 	//HangMainMain();
-	FullNameMain();
+	//FullNameMain();
+	HangMainLibraryMain();
 }
