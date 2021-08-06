@@ -37,16 +37,56 @@ void FileTextReadMain()
 //바이너리파일: 이미지(dat,raw)
 void FileBinaryWirteMain()
 {
+	const int nWidth = 5;
+	const int nHeight = 5;
+	unsigned char bufferImage[nWidth * nHeight];
+	for (int i = 0; i < nWidth * nHeight; i++)
+	{
+		bufferImage[i] = 10 * i;
+	}
 
+	FILE* pFile = fopen("binary.raw", "wb");
+
+	if (pFile)
+	{
+		fwrite(bufferImage, sizeof(bufferImage), nWidth * nHeight, pFile);
+		fclose(pFile);
+	}
 }
-
 void FileBinaryReadMain()
 {
+	const int nWidth = 5;
+	const int nHeight = 5;
+	unsigned char bufferImage[nWidth * nHeight];
+	FILE* pFile = fopen("binary.raw", "rb");
 
+	if (pFile)
+	{
+		fread(bufferImage, sizeof(bufferImage), nWidth * nHeight, pFile);
+		fclose(pFile);
+
+		for (int y = 0; y < nHeight; y++)
+		{
+			for (int x = 0; x < nWidth; x++)
+			{
+				int nIdx = y * nWidth + x;
+				printf("%d,", bufferImage[nIdx]);
+			}
+			printf("\n");
+		}
+
+		/*for (int i = 0; i < nWidth * nHeight; i++)
+		{
+			if (i % 5 == 0) printf("\n");
+			printf("%d,", bufferImage[i]);
+		}*/
+	}
 }
 
 void main()
 {
-	FileTextWirteMain();
-	FileTextReadMain();
+	//FileTextWirteMain();
+	//FileTextReadMain();
+	//FileBinaryWirteMain();
+	FileBinaryReadMain();
 }
