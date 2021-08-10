@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{be9c4c00-0676-43c1-a2ad-c5a5ab350553}</ProjectGuid>
-    <RootNamespace>My7ModenCPP</RootNamespace>
+    <ProjectGuid>{1a8cb2b0-99d6-4744-939e-5af59a990bf1}</ProjectGuid>
+    <RootNamespace>My7FunctionPtr</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="7.ModenCPP.cpp" />
+    <ClCompile Include="7.FunctionPtr.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

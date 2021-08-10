@@ -35,6 +35,7 @@ void FileTextReadMain()
 	}
 }
 //바이너리파일: 이미지(dat,raw)
+//파일을 메모리째로 저장하고 읽어온다.
 void FileBinaryWirteMain()
 {
 	const int nWidth = 5;
@@ -82,11 +83,16 @@ void FileBinaryReadMain()
 		}*/
 	}
 }
-
+//1.파일 쓰기 함수를 실행
+//2.파일생성 확인 (상위폴더보기)
+//3.파일 읽기 함수 실행
+//4.파일에썻던 내용대로 출력되는지 확인하기
+//5.텍스트와 바이너리 각각 확인하기.
+//6.바이너리파일과 텍스트파일의 차이는 무엇인가?
 void main()
 {
 	//FileTextWirteMain();
 	//FileTextReadMain();
-	//FileBinaryWirteMain();
-	FileBinaryReadMain();
+	FileBinaryWirteMain();
+	//FileBinaryReadMain();
 }
