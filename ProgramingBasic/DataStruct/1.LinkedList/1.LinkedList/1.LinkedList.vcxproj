@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{d208e78b-a660-4fdc-ba67-a904dd636413}</ProjectGuid>
-    <RootNamespace>My9DynamicAllocate</RootNamespace>
+    <ProjectGuid>{722b9dee-ff66-44af-bc90-e491b7242822}</ProjectGuid>
+    <RootNamespace>My1LinkedList</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="9.dynamicAllocate.cpp" />
+    <ClCompile Include="1.LinkedList.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
