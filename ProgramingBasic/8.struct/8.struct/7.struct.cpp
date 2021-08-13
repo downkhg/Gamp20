@@ -87,14 +87,13 @@ void PlayerMain()
 		PrintPlayerRef(arrPlayer[i]);
 	}
 }
-
+//공용체: 멤버들이 메모리를 공유함.
 union Matrix4x4 {
 	struct {
 		float        _11, _12, _13, _14;
 		float        _21, _22, _23, _24;
 		float        _31, _32, _33, _34;
 		float        _41, _42, _43, _44;
-
 	};
 	float m[4][4];
 };
@@ -116,9 +115,40 @@ void UninonTestMain()
 	printf("mat._31:%f\n", mat._31);
 	printf("mat._41:%f\n", mat._41);
 }
+//열거형: 숫자대신에 이해하기 쉽도록 돕는다.
+enum E_STATGE { NONE = -1, EXIT, GROUND, MOUNTIN, VELLY, };
+
+void StateSelectMain()
+{
+	const int nSize = 4;
+	const char* strStatge[nSize] = { "exit","ground", "mountin", "velly" };
+	int nStageSelect = E_STATGE::NONE;
+
+	while (nStageSelect != EXIT)
+	{
+		for (int i = 0; i < nSize; i++) printf("%d:%s,", i, strStatge[i]); printf("\n");
+		scanf("%d", &nStageSelect);
+		printf("StageSelect:%d\n", nStageSelect);
+		switch (nStageSelect)
+		{
+		case E_STATGE::GROUND:
+			printf("GROUND!!!");
+			break;
+		case E_STATGE::MOUNTIN:
+			printf("MOUNTIN!!!");
+			break;
+		case E_STATGE::VELLY:
+			printf("VELLY!!!");
+			break;
+		default:
+			break;
+		}
+	}
+}
 
 void main()
 {
-	PlayerMain();
-	UninonTestMain();
+	//PlayerMain();
+	//UninonTestMain();
+	StateSelectMain();
 }
