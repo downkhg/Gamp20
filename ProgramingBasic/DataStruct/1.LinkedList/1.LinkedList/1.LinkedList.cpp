@@ -81,15 +81,16 @@ SNode* CreateNode(SNode* pNode, int data)
 
 SNode* FindNodeData(SNode* pStart, int data)
 {
-	SNode* pNode = pStart;
+	SNode* pNode = pStart; //0x01
 
-	if (pStart->nData != data)
+	while (true)
 	{
-		pNode = pStart->pNext;
-	}
-	if (pNode->nData != data)
-	{
-		pNode = pStart->pNext;
+		if (pNode->nData != data)//20 != 40 -> T
+		{
+			pNode = pNode->pNext;
+		}
+		else
+			break;
 	}
 
 	return pNode;
@@ -101,7 +102,12 @@ SNode* InsertNodeData(SNode* pStart, int data, int insert)
 	SNode* pInsert = NULL;
 
 	pNode = FindNodeData(pStart, data);
-
+	pInsert = new SNode();
+	pInsert->nData = insert;
+	//pNode->pNext = pInsert;
+	pInsert->pNext = pNode->pNext;
+	pNode->pNext = pInsert;
+	
 	return pNode;
 }
 
