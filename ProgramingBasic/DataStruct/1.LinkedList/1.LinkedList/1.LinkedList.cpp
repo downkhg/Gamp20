@@ -73,13 +73,24 @@ SNode* CreateNode(SNode* pNode, int data)
 
 	pTemp = new SNode();
 	pTemp->nData = data;
-
+	if(pNode != NULL)//0x01 != NUUL -> T
+		pNode->pNext = pTemp; //실행되지않음
+	//pTemp->pNext = pNode; //실행은 가능하지만 정상적인 결과가 아님.
 	return  pTemp;
 }
 
 SNode* FindNodeData(SNode* pStart, int data)
 {
 	SNode* pNode = pStart;
+
+	if (pStart->nData != data)
+	{
+		pNode = pStart->pNext;
+	}
+	if (pNode->nData != data)
+	{
+		pNode = pStart->pNext;
+	}
 
 	return pNode;
 }
