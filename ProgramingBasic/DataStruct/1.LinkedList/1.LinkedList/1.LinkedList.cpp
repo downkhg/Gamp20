@@ -21,7 +21,8 @@ SNode* FindNodeData(SNode* pStart, int data); //해당 데이터를 가진 노드를 찾는다
 SNode* InsertNodeData(SNode* pStart, int data, int insert); //해당 데이터를 가진 노드 뒤에 노드를 추가한다.
 void DeleteNodeData(SNode* pStart, int del); //해당데이터를 가진 노드를 삭제한다.
 void PrintLinkedList(SNode* pStart); //노드를 순회하며 끝날때까지 출력한다.
-void DeleteLinkedList(SNode* pStart); //노드를 순회하며 모든데이터를 삭제한다.
+//void DeleteLinkedList(SNode** pStart); //노드를 순회하며 모든데이터를 삭제한다.
+void DeleteLinkedList(SNode* &pStart); //노드를 순회하며 모든데이터를 삭제한다.
 void ReverseLinkedList(SNode* pStart); //
 
 									   //연결리스트 동적으로 입력받기.(동적할당 설명용)
@@ -73,6 +74,7 @@ SNode* CreateNode(SNode* pNode, int data)
 
 	pTemp = new SNode();
 	pTemp->nData = data;
+	pTemp->pNext = NULL;
 	if(pNode != NULL)//0x01 != NUUL -> T
 		pNode->pNext = pTemp; //실행되지않음
 	//pTemp->pNext = pNode; //실행은 가능하지만 정상적인 결과가 아님.
@@ -102,12 +104,13 @@ SNode* InsertNodeData(SNode* pStart, int data, int insert)
 	SNode* pInsert = NULL;
 
 	pNode = FindNodeData(pStart, data);
+	
 	pInsert = new SNode();
 	pInsert->nData = insert;
-	//pNode->pNext = pInsert;
 	pInsert->pNext = pNode->pNext;
 	pNode->pNext = pInsert;
 	
+
 	return pNode;
 }
 
@@ -116,7 +119,22 @@ void DeleteNodeData(SNode* pStart, int del)
 	SNode* pPre = NULL;
 	SNode* pNode = pStart;
 
-
+	//pNode = FindNodeData(pStart, del); //이전값을 찾을 수 없다.
+	while (pNode)
+	{
+		if (pNode->nData == del)//60 == 60 -> T
+		{
+			pPre->pNext = pNode->pNext;
+			delete pNode;
+			break;
+		}
+		else
+		{
+			pPre = pNode;
+			pNode = pNode->pNext;
+			//pPre = pStart;
+		}
+	}
 }
 
 void PrintLinkedList(SNode* pStart)
@@ -134,11 +152,36 @@ void PrintLinkedList(SNode* pStart)
 	printf("\n");
 }
 
-void DeleteLinkedList(SNode* pStart)
+void DeleteLinkedList(SNode* &pStart)
 {
 	SNode* pNode = pStart;
 	SNode* pDel = NULL;
+
+	while (pNode)
+	{
+		//delete pNode;
+		pDel = pNode;
+		pNode = pNode->pNext;
+		delete pDel;
+	}
+	pStart = NULL;
 }
+
+//이중포인터: 포인터의 주소값을 저장하는 변수
+//void DeleteLinkedList(SNode** pStart)
+//{
+//	SNode* pNode = *pStart;
+//	SNode* pDel = NULL;
+//
+//	while (pNode)
+//	{
+//		//delete pNode;
+//		pDel = pNode;
+//		pNode = pNode->pNext;
+//		delete pDel;
+//	}
+//	*pStart = NULL;
+//}
 
 void InputAdd()
 {
