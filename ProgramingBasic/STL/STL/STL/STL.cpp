@@ -1,5 +1,14 @@
 #include <iostream>
+//선형자료구조
 #include <vector>
+#include <deque>
+#include <list>
+#include <stack>
+#include <queue>
+//트리자료구조
+#include <set>
+#include <map>
+//해시테이블
 #include <unordered_map>
 using namespace std;
 //백터: 동적배열 -> 크기를 변경할 수 있는 배열
@@ -46,13 +55,106 @@ void VectorMain()
 	cout << endl;
 	it = it - 3;
 	container.erase(it); //삭제
+	container.pop_back(); //마지막원소삭제
 	for (int i = 0; i < container.size(); i++)
 		cout << "[" << i << "]" << container[i] << ",";
+	cout << endl;
+	container.clear(); //모두삭제
+}
+//데크: 양끝에서 추가 가능한 자료구조
+void DequeMain()
+{
+	deque<int> container(1);
+	container[0] = 10;
+	for (int i = 0; i < container.size(); i++)
+		cout << "[" << i << "]" << container[i] << ",";
+	cout << endl;
+	container.resize(3);
+	container[1] = 20;
+	for (int i = 0; i < container.size(); i++)
+		cout << "[" << i << "]" << container[i] << ",";
+	cout << endl;
+	container.push_front(11);
+	container.push_back(99);//추가
+	for (int i = 0; i < container.size(); i++)
+		cout << "[" << i << "]" << container[i] << ",";
+	cout << endl;
+	deque<int>::iterator it = container.begin();//노드
+	cout << "begin:" << *it << endl;
+	cout << "begin+2:" << *(it + 2) << endl;
+	it = container.insert(it, 88);
+	if (it != container.end())
+		cout << "Insert:" << *it << endl;
+	else
+		cout << "Insert is null" << endl;
+	it = --container.end();
+	if (it != container.end())
+		cout << "end-1:" << *it << endl;
+	else
+		cout << "it is null" << endl;
+	it = container.insert(it, 77);
+	//노드기반 순차접근
+	for (it = container.begin(); it != container.end(); it++)
+		cout << *it << ",";
+	cout << endl;
+	it = it - 3;
+	container.erase(it); //삭제
+	container.pop_back(); //마지막원소삭제
+	container.pop_front(); //첫원소삭제
+	for (int i = 0; i < container.size(); i++)
+		cout << "[" << i << "]" << container[i] << ",";
+	cout << endl;
+	container.clear(); //모두삭제
+}
+//이중연결리스트
+void ListMain()
+{
+	list<int> container(1);
+	list<int>::iterator it = container.begin();//노드
+	*it = 10;
+	for (it = container.begin(); it != container.end(); it++)
+		cout << *it << ",";
+	cout << endl;
+	container.resize(3);
+	it = container.begin(); it++; it++;
+	*it = 20;
+	for (it = container.begin(); it != container.end(); it++)
+		cout << *it << ",";
+	cout << endl;
+	container.push_back(99);//추가
+	for (it = container.begin(); it != container.end(); it++)
+		cout << *it << ",";
+	cout << endl;
+	
+	cout << "begin:" << *it << endl;
+	it++; it++;
+	cout << "begin+2:" << *it << endl;
+	it = container.insert(it, 88);
+	if (it != container.end())
+		cout << "Insert:" << *it << endl;
+	else
+		cout << "Insert is null" << endl;
+	it = --container.end();
+	if (it != container.end())
+		cout << "end-1:" << *it << endl;
+	else
+		cout << "it is null" << endl;
+	it = container.insert(it, 77);
+	//노드기반 순차접근
+	for (it = container.begin(); it != container.end(); it++)
+		cout << *it << ",";
+	cout << endl;
+	--it; --it; --it;
+	container.erase(it); //삭제
+	container.pop_back(); //마지막원소삭제
+	for (it = container.begin(); it != container.end(); it++)
+		cout << *it << ",";
 	cout << endl;
 	container.clear(); //모두삭제
 }
 
 void main()
 {
-	VectorMain();
+	//VectorMain();
+	DequeMain();
 }
