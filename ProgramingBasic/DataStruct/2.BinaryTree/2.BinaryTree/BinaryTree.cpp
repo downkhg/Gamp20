@@ -123,7 +123,6 @@ void TreeBasicMain()
 	SNode* pD = CreateNode(40);
 	SNode* pE = CreateNode(50);
 
-
 	if (!MakeLeft(pParant, pLeft))
 		printf("MakeLeft Fail!!");
 	MakeRight(pParant, pRight);
