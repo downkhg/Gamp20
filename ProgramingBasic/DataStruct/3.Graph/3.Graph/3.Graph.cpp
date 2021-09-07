@@ -35,6 +35,14 @@ void TravesseDFS(SNode* pNode)
 	}
 }
 
+void TraverReset(vector<SNode*>& vec)
+{
+	for (int i = 0; i < vec.size(); i++)
+	{
+		vec[i]->bVisit = false;
+	}
+}
+
 enum E_NODE { A, B, C, D, E, F, G, H, MAX} ;
 
 void main()
@@ -67,6 +75,7 @@ void main()
 	MakeAdjacency(vecNodes[G], vecNodes[H]);
 
 	TravesseDFS(vecNodes[A]);
+	TraverReset(vecNodes);
 
 	for (int i = 0; i < vecNodes.size(); i++)
 		delete vecNodes[i];
