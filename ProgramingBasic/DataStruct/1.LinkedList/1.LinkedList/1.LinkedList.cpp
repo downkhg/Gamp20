@@ -16,7 +16,7 @@ struct SNode {
 	SNode* pNext;
 };
 
-SNode* CreateNode(SNode* pNode, int data); //노드를 생성하여 리턴한다.
+//SNode* CreateNode(SNode* pNode, int data); //노드를 생성하여 리턴한다.
 SNode* FindNodeData(SNode* pStart, int data); //해당 데이터를 가진 노드를 찾는다.
 SNode* InsertNodeData(SNode* pStart, int data, int insert); //해당 데이터를 가진 노드 뒤에 노드를 추가한다.
 void DeleteNodeData(SNode* pStart, int del); //해당데이터를 가진 노드를 삭제한다.
