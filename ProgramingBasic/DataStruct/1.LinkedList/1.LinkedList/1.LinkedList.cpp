@@ -10,6 +10,7 @@
 #include <stdlib.h> //메모리 동적할당 헤더
 #include <crtdbg.h> //메모리 누수 탐지 헤더
 //#include  "linkedlistClass.h"
+#include "LinkedList.h"
 
 struct SNode {
 	int nData;
@@ -32,7 +33,7 @@ void InputAdd();
 //이 소스에 몇가지 버그가 존재한다.
 //이 코드가 정상작동 된 후 발견해볼것!
 //main()함수 내 코드는 추가는 가능하지만 삭제는 하지말것!
-void main()
+void LinkedListMain()
 {
 	//_CrtSetBreakAlloc(71); //메모리 누수시 번호를 넣으면 할당하는 위치에 브레이크 포인트를 건다.
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); //메모리 누수 검사 
@@ -64,6 +65,41 @@ void main()
 	PrintLinkedList(pBegin);
 
 	DeleteLinkedList(pBegin); //모든노드삭제 - 이 함수를 호출하지않을시 메모리가 누수됨.
+}
+
+void LinkedListTestMain()
+{
+	//_CrtSetBreakAlloc(71); //메모리 누수시 번호를 넣으면 할당하는 위치에 브레이크 포인트를 건다.
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); //메모리 누수 검사 
+	demo::LinkedList cLinkedList;
+
+	//노드 추가 테스트
+	cLinkedList.CreateNode(10);
+	cLinkedList.CreateNode(20);
+	cLinkedList.CreateNode(30);
+	cLinkedList.CreateNode(40);
+	cLinkedList.CreateNode(50);
+
+	cLinkedList.PrintLinkedList();
+
+	demo::SNode* pFind = cLinkedList.FindNodeData(40);
+	if (pFind != NULL)
+		printf("Find:%d\n", pFind->nData);
+
+	cLinkedList.InsertNodeData(30, 60);//노드 삽입
+
+	cLinkedList.PrintLinkedList();
+
+	cLinkedList.DeleteNodeData(60);//노드 삭제
+
+	cLinkedList.PrintLinkedList();
+
+	cLinkedList.DeleteLinkedList(); //모든노드삭제 - 이 함수를 호출하지않을시 메모리가 누수됨.
+}
+
+void main()
+{
+	LinkedListTestMain();
 }
 
 //여기서 부터 기능을 구현한다.

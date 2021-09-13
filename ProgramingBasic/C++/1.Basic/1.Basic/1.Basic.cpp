@@ -74,6 +74,28 @@ void StringTestMain()
 	cout << strFullName << endl;
 }
 
+void ChararrayTestMain()
+{
+	const int SIZE = 128;
+	char strFirstName[SIZE];
+	char strLastName[SIZE];
+	char strFullName[SIZE] = "";
+
+	strcpy_s(strFirstName,"hg");
+	strcpy_s(strLastName,"k");
+
+	strcat_s(strFullName, strFirstName);
+	strcat_s(strFullName, strLastName);
+	cout << strFullName << endl;
+}
+//단어맞추기게임(c언어)
+//1.문자열 클래스를 이용하여 만들기(배열처럼 사용O)
+//2.문자열을 배열처럼 사용하지않고, 문자열내부 함수만 이용하여 만들기
+void HangManGameMain()
+{
+
+}
+
 void main()
 {
 	//NamespaceTestMain();
@@ -81,4 +103,5 @@ void main()
 	//SumTestMain();
 	//RefMain();
 	StringTestMain();
+	ChararrayTestMain();
 }
