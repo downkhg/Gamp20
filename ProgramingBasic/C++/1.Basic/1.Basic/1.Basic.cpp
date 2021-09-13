@@ -46,9 +46,39 @@ void SumTestMain()
 	cout << "Sum3:" << Sum(10, 20, 30) << endl;
 }
 
+void RefMain()
+{
+	int nData = 10;
+	int& refData = nData; //초기화하지않으면 오류가 난다.(null불가)
+	//변수를 참조한다.
+	cout << "1.Data:" << nData << endl;
+	cout << "1.refData:" << refData << endl;
+	nData = 20;
+	cout << "2.Data:" << nData << endl;
+	cout << "2.refData:" << refData << endl;
+	refData = 30;
+	cout << "3.Data:" << nData << endl;
+	cout << "3.refData:" << refData << endl;
+}
+
+void StringTestMain()
+{
+	string strFirstName;
+	string strLastName;
+	string strFullName;
+
+	strFirstName = "hg";
+	strLastName = "k";
+
+	strFullName = strFirstName + strLastName;
+	cout << strFullName << endl;
+}
+
 void main()
 {
 	//NamespaceTestMain();
 	//std::cout << "Hello World!" << std::endl;
-	SumTestMain();
+	//SumTestMain();
+	//RefMain();
+	StringTestMain();
 }
