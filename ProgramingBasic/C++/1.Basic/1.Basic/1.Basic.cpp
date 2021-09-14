@@ -93,7 +93,31 @@ void ChararrayTestMain()
 //2.문자열을 배열처럼 사용하지않고, 문자열내부 함수만 이용하여 만들기
 void HangManGameMain()
 {
+	string strAnswer = "GAME";
+	string strEmpty = "____";
+	char cInput;
+	while (true)
+	{
+		printf("Q:%s\n", strEmpty.c_str());
+		scanf("%c", &cInput);
 
+		int nResultIdx = strAnswer.find(cInput);//찾은 문자열의 주소값을 반환한다.
+		if (nResultIdx != -1)
+		{
+			//찾은 문자열의주소에서 문자열시작주소를 빼서 현재 인덱스값을 계산한다.
+			strEmpty.replace(nResultIdx, 1, 1, cInput);
+		}
+		else
+			printf("not found!\n");
+
+		if (strAnswer == strEmpty)
+		{
+			printf("Q:%s\n", strEmpty.c_str());
+			break;
+		}
+		else
+			printf("strcmp:%d\n", nResultIdx);
+	}
 }
 
 void main()
@@ -102,6 +126,7 @@ void main()
 	//std::cout << "Hello World!" << std::endl;
 	//SumTestMain();
 	//RefMain();
-	StringTestMain();
-	ChararrayTestMain();
+	//StringTestMain();
+	//ChararrayTestMain();
+	HangManGameMain();
 }
