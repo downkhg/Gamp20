@@ -9,6 +9,7 @@ namespace demo
 	};
 	class LinkedList
 	{
+	private:
 		SNode* pBegin = NULL;
 		SNode* pEnd = NULL;
 	public:
