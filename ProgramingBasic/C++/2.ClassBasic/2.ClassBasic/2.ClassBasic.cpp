@@ -14,18 +14,37 @@ class CCar//클래스: 설계도
 {
 public:
 	enum E_GEAR { P, R, N, D, ONE, TOW };
-
+private:
 	string m_strColor;
 	int m_nSpeed;
 	E_GEAR m_eGear;
+public:
+	//Getter: 어떤 멤버변수를 가져오는 함수. 
+	string GetColor() { return m_strColor; }; //색상을 변경하면 범죄행위다 기본적으로는 관찰만 가능하다.
+	int GetSpeed() { return m_nSpeed; }  //물리법칙에 의해서 속도를 변경하는 방법은 가속/감속 말고는 존제하지않으므로, 변경을 못하게한다.
+	//Setter: 어떤 멤버변수를 설정하는 함수.
+	void SetGear(E_GEAR eGear){ m_eGear = eGear; }//기어는 스택으로 조절가능하다.
+	void SetColor(string color){ m_strColor = color; }//색상은 내가 허용하면 변경가능하다.
 	//생성자: 객체가 생성될때 호출되는 함수
-	CCar(string color, E_GEAR gear, int speed)
+	//CCar() //기본생성자 - 매개변수가 없는 생성자:객체를 생성할때 매개변수를 지정하지않아도 생성되게 하려면 필요하다.
+	//{
+	//	m_strColor = "Gray";
+	//	m_eGear = E_GEAR::N;
+	//	m_nSpeed = 0;
+	//}
+	//디폴트매개변수를 이용하여 기본생성자를 지정하지않아도 가능하게 만들수있다.
+	CCar(string color = "Gray", E_GEAR gear =E_GEAR::N, int speed = 0) //생성자를 이용하여, 클래스생성시에 초기값을 반드시 할당하도록 만들수있다.
 	{
+		cout << "CCar[" << this << "]:" << color << endl;
 		m_strColor = color;
 		m_eGear = gear;
 		m_nSpeed = speed;
 	}
-
+	//소멸자: 메모리가 해제될때 호출되는 함수.
+	~CCar()
+	{
+		cout << "~CCar[" << this << "]:" << m_strColor << endl;
+	}
 	void Accel()
 	{
 		m_nSpeed++;
@@ -34,14 +53,7 @@ public:
 	{
 		m_nSpeed--;
 	}
-	void SetGear(E_GEAR eGear)
-	{
-		m_eGear = eGear;
-	}
-	void SetColor(string color)
-	{
-		m_strColor = color;
-	}
+
 	void Display()
 	{
 		cout <<"#### "<< m_strColor<<" ####"<< endl;
@@ -52,11 +64,14 @@ public:
 
 void CarTestMain()
 {
-	CCar cCar("Red",CCar::E_GEAR::N, 0);
-
-	cCar.m_strColor = "Red";
+	//클래스객체를 메모리할당
+	CCar cCar;// ("Red", CCar::E_GEAR::N, 0);
+	cout << "cCar:"<< &cCar << endl;
+	//사용자의 승인없이 값이 변경되는것은 법적으로 금지되어있다.
+	//이를 나타나게 하려면, private멤버로 변경하면된다.
+	/*cCar.m_strColor = "Red";
 	cCar.m_nSpeed = 0;
-	cCar.m_eGear = CCar::E_GEAR::P;
+	cCar.m_eGear = CCar::E_GEAR::P;*/
 
 	cCar.Accel();
 	cCar.Display();
