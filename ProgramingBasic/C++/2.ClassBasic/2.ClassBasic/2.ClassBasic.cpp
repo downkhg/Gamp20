@@ -62,22 +62,53 @@ public:
 	}
 };
 
+void SwapCarVal(CCar cCarA, CCar cCarB)
+{
+	CCar temp = cCarA;
+	cCarA = cCarB;
+	cCarB = temp;
+}
+
+void SwapCarRef(CCar& cCarA, CCar& cCarB)
+{
+	CCar temp = cCarA;
+	cCarA = cCarB;
+	cCarB = temp;
+}
+
 void CarTestMain()
 {
+	cout << "CarTestMain() Start!" << endl;
 	//클래스객체를 메모리할당
-	CCar cCar;// ("Red", CCar::E_GEAR::N, 0);
-	cout << "cCar:"<< &cCar << endl;
+	CCar cCar("Red", CCar::E_GEAR::N, 0);
+	CCar arrCar[3];
+	CCar* pCar = NULL; //포인터를 생성시 객체는 없다.
+	cout << "cCar:" << &cCar << endl;
+
+	pCar = new CCar("blue"); //객체를 동적할당하고 객체의 주소값을 포인터에 저장한다.
+	delete pCar; //동적할당된 객체의 메모리를 해제한다.
+	
 	//사용자의 승인없이 값이 변경되는것은 법적으로 금지되어있다.
 	//이를 나타나게 하려면, private멤버로 변경하면된다.
 	/*cCar.m_strColor = "Red";
 	cCar.m_nSpeed = 0;
 	cCar.m_eGear = CCar::E_GEAR::P;*/
-
 	cCar.Accel();
 	cCar.Display();
+
+	CCar cCarB("green");
+	SwapCarVal(cCar, cCarB);
+	cCar.Display();
+	cCarB.Display();
+	SwapCarRef(cCar, cCarB);
+	cCar.Display();
+	cCarB.Display();
+	cout << "CarTestMain() End!" << endl;
 }
 
 void main()
 {
+	cout << "main() Start!" << endl;
 	CarTestMain();
+	cout << "main() End!" << endl;
 }
