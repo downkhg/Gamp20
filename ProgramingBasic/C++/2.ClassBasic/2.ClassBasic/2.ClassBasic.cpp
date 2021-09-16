@@ -40,10 +40,13 @@ public:
 		m_eGear = gear;
 		m_nSpeed = speed;
 	}
-	//복사생성자: 객체가 초기화될때 다른객체에서복사가되면 호출되는 함수
+	//복사생성자: 객체가 초기화될때 다른객체에서 복사가되면 호출되는 함수
 	CCar(CCar& car)
 	{
-		memcpy_s(this, sizeof(CCar), &car, sizeof(CCar));
+		//memcpy_s(this, sizeof(CCar), &car, sizeof(CCar));
+		this->m_nSpeed = car.m_nSpeed;
+		this->m_strColor = car.m_strColor;
+		this->m_eGear = car.m_eGear;
 		cout << "CCar Copy[" << this << "]:" << m_strColor << endl;
 	}
 	//소멸자: 메모리가 해제될때 호출되는 함수.
@@ -59,7 +62,6 @@ public:
 	{
 		m_nSpeed--;
 	}
-
 	void Display()
 	{
 		cout <<"#### "<< m_strColor<<" ####"<< endl;
@@ -67,7 +69,6 @@ public:
 		cout << "Speed:" << m_nSpeed << endl;
 	}
 };
-
 void SwapCarVal(CCar cCarA, CCar cCarB)
 {
 	cout << "SwapCarVal" << endl;
@@ -75,7 +76,6 @@ void SwapCarVal(CCar cCarA, CCar cCarB)
 	cCarA = cCarB;
 	cCarB = temp;
 }
-
 void SwapCarRef(CCar& cCarA, CCar& cCarB)
 {
 	cout << "SwapCarRef" << endl;
@@ -83,11 +83,12 @@ void SwapCarRef(CCar& cCarA, CCar& cCarB)
 	cCarA = cCarB;
 	cCarB = temp;
 }
-
 void SwapTestMain()
 {
 	CCar cCarA("yellow");
 	CCar cCarB("green");
+	cCarA.Display();
+	cCarB.Display();
 	SwapCarVal(cCarA, cCarB);
 	cCarA.Display();
 	cCarB.Display();
