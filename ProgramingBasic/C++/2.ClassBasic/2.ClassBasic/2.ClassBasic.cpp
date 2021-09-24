@@ -43,7 +43,7 @@ public:
 	//복사생성자: 객체가 초기화될때 다른객체에서 복사가되면 호출되는 함수
 	CCar(CCar& car)
 	{
-		//memcpy_s(this, sizeof(CCar), &car, sizeof(CCar));
+		//memcpy_s(this, sizeof(CCar), &car, sizeof(CCar)); //일부컴퓨터에서 문제가 발생하는 경우가 있음.
 		this->m_nSpeed = car.m_nSpeed;
 		this->m_strColor = car.m_strColor;
 		this->m_eGear = car.m_eGear;
@@ -62,6 +62,8 @@ public:
 	{
 		m_nSpeed--;
 	}
+	//직접적으로 속성을 변경하는 것은 아니나 꼭 필요하다.
+	//이 함수가 없다는것은 계기판이 없는 차를 탄것과 다를것이 없다.
 	void Display()
 	{
 		cout <<"#### "<< m_strColor<<" ####"<< endl;
