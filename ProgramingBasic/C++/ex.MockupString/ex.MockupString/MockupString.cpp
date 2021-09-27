@@ -13,10 +13,10 @@ void STDStringMain()
 	string srtCopyMsg = strMsg; //복사생성자
 
 	cout << strMsg.c_str() << endl; //const char*를 리턴하는 함수 //Test
-	printf("%d:%s\n", strMsg.c_str(), strMsg.c_str()); //0x01: Test
+	printf("%d:%s\n", strMsg.c_str(), strMsg.c_str()); //0x01:Test
 	cout << strMsg2.c_str() << endl; //DataTest
-	printf("%d:%s\n", strMsg2.c_str(), strMsg2.c_str()); //0x02: DataTest
-	printf("%d:%s\n", srtCopyMsg.c_str(), srtCopyMsg.c_str()); //0x03: DataTest
+	printf("%d:%s\n", strMsg2.c_str(), strMsg2.c_str()); //0x02:DataTest
+	printf("%d:%s\n", srtCopyMsg.c_str(), srtCopyMsg.c_str()); //0x03:Test
 	cout << "##### STDStringMain End######" << endl;
 }
 
@@ -26,6 +26,10 @@ namespace Mockup
 	{
 		char* pStr; //동적할당된 문자열의 주소를 저장할 포인터
 	public:
+		string()
+		{
+			pStr = NULL;
+		}
 		//생성자에서 동적할당된 메모리는 객체가 소멸될때 호출되어야한다.
 		string(const char* str)
 		{
@@ -38,7 +42,10 @@ namespace Mockup
 		}
 		string(string& str)
 		{
-			pStr = str.pStr;
+			int nSize = strlen(str.pStr) + 1;
+			pStr = new char[nSize];
+			strcpy_s(pStr, nSize, str.pStr);
+			//pStr = str.pStr;
 			cout << "FakeString Copy[" << this << "]:" << (int)pStr << endl;
 		}
 		//생성자에서 동적할당하였으므로 반드시 소멸자에서 동적할당된 객체를 정리한다.
@@ -66,7 +73,7 @@ void MockupStringMain()
 	cout << strMsg2.c_str() << endl; //DataTest
 	printf("%d:%s\n", strMsg2.c_str(), strMsg2.c_str()); //0x02: DataTest
 	cout << srtCopyMsg.c_str() << endl; //0x01: Test
-	printf("%d:%s\n", srtCopyMsg.c_str(), srtCopyMsg.c_str()); //0x02: DataTest
+	printf("%d:%s\n", srtCopyMsg.c_str(), srtCopyMsg.c_str()); //0x01:Test -> 0x03:Test
 	cout << "##### FakeStringMain End######" << endl;
 }
 
