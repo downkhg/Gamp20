@@ -18,7 +18,7 @@ private:
 	string m_strColor;
 	int m_nSpeed;
 	E_GEAR m_eGear;
-public:
+
 	//Getter: 어떤 멤버변수를 가져오는 함수. 
 	string GetColor() { return m_strColor; }; //색상을 변경하면 범죄행위다 기본적으로는 관찰만 가능하다.
 	int GetSpeed() { return m_nSpeed; }  //물리법칙에 의해서 속도를 변경하는 방법은 가속/감속 말고는 존제하지않으므로, 변경을 못하게한다.
@@ -32,6 +32,7 @@ public:
 	//	m_eGear = E_GEAR::N;
 	//	m_nSpeed = 0;
 	//}
+//private: //생성자가 private이라면 객체 생성이 불가능해진다. 그러므로 싱글톤이외에 거이 쓸일은 없다.
 	//디폴트매개변수를 이용하여 기본생성자를 지정하지않아도 가능하게 만들수있다.
 	CCar(string color = "Gray", E_GEAR gear =E_GEAR::N, int speed = 0) //생성자를 이용하여, 클래스생성시에 초기값을 반드시 할당하도록 만들수있다.
 	{
@@ -40,6 +41,7 @@ public:
 		m_eGear = gear;
 		m_nSpeed = speed;
 	}
+public:
 	//복사생성자: 객체가 초기화될때 다른객체에서 복사가되면 호출되는 함수
 	CCar(CCar& car)
 	{

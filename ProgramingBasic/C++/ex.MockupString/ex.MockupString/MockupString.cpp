@@ -10,14 +10,51 @@ void STDStringMain()
 	cout << "##### STDStringMain Start######" << endl;
 	string strMsg("Test"); //생성자
 	string strMsg2("DataTest"); //생성자
-	string srtCopyMsg = strMsg; //복사생성자
+	string strCopyMsg = strMsg; //복사생성자
+	string strCopyMsg2;
+	strCopyMsg2 = strMsg2;
 
 	cout << strMsg.c_str() << endl; //const char*를 리턴하는 함수 //Test
-	printf("%d:%s\n", strMsg.c_str(), strMsg.c_str()); //0x01:Test
+	printf("%d:%s\n", (int)strMsg.c_str(), strMsg.c_str()); //0x01:Test
 	cout << strMsg2.c_str() << endl; //DataTest
-	printf("%d:%s\n", strMsg2.c_str(), strMsg2.c_str()); //0x02:DataTest
-	printf("%d:%s\n", srtCopyMsg.c_str(), srtCopyMsg.c_str()); //0x03:Test
+	printf("%d:%s\n", (int)strMsg2.c_str(), strMsg2.c_str()); //0x02:DataTest
+	printf("%d:%s\n", (int)strCopyMsg.c_str(), strCopyMsg.c_str()); //0x03:Test
+	printf("%d:%s\n", (int)strCopyMsg2.c_str(), strCopyMsg2.c_str()); //0x04:Test
 	cout << "##### STDStringMain End######" << endl;
+}
+//1char 2.float 3.int
+void STDStringHangManGameMain()
+{
+	string strAnswer = "GAME";
+	string strEmpty = "____";
+	char cInput;
+	while (true)
+	{
+		printf("Q:%s\n", strEmpty.c_str());
+		scanf_s("%c", &cInput);
+
+		int nResultIdx = strAnswer.find(cInput);//찾은 문자열의 주소값을 반환한다.
+		if (nResultIdx != -1)
+		{
+			//찾은 문자열의주소에서 문자열시작주소를 빼서 현재 인덱스값을 계산한다.
+			string temp = strEmpty.replace(nResultIdx, 1, 1, cInput);
+		}
+		else
+			printf("not found!\n");
+
+		if (strAnswer == strEmpty)
+		{
+			printf("Q:%s\n", strEmpty.c_str());
+			break;
+		}
+		else
+			printf("strcmp:%d\n", nResultIdx);
+	}
+	for (int i = 0; i < strAnswer.size(); i++)
+		cout << i << ":" << strAnswer[i] << endl;
+	string strSum;
+	strSum = strAnswer + strEmpty;
+	strSum = strAnswer;
 }
 
 namespace Mockup
@@ -40,7 +77,7 @@ namespace Mockup
 			strcpy_s(pStr, nSize, str);
 			cout << "FakeString[" << this << "]:" << (int)pStr << endl;
 		}
-		string(string& str)
+		string(const string& str)
 		{
 			int nSize = strlen(str.pStr) + 1;
 			pStr = new char[nSize];
@@ -58,24 +95,94 @@ namespace Mockup
 		{
 			return pStr;
 		}
+		//함수를 정의할때 리턴값과 매개변수를 고려해서 선택하면된다.
+		int find(const char)
+		{
+			return 0;
+		}
+		string& replace(int offset, int number, int count, const char replace)
+		{
+			string strTemp;
+			return strTemp;
+		}
+		bool operator==(const string& str)
+		{
+			return false;
+		}
+		string operator+(const string& str)
+		{
+			string strTemp;
+			return strTemp;
+		}
+		string operator=(const string& str)
+		{
+			pStr = str.pStr;
+			return *this;
+		}
+		int size()
+		{
+			return 0;
+		}
+		char operator[](int idx)
+		{
+			return 0;
+		}
 	};
 }
 
+//1.char 2.string 3.bool
 void MockupStringMain()
 {
 	cout << "##### FakeStringMain Start ######" << endl;
 	Mockup::string strMsg("Test"); //생성자
 	Mockup::string strMsg2("DataTest"); //생성자
-	Mockup::string srtCopyMsg = strMsg; //복사생성자
+	Mockup::string strCopyMsg = strMsg; //복사생성자
+	Mockup::string strCopyMsg2;
+	strCopyMsg2 = strMsg2;
 
 	cout << strMsg.c_str() << endl; //const char*를 리턴하는 함수 //Test
-	printf("%d:%s\n", strMsg.c_str(), strMsg.c_str()); //0x01: Test
+	printf("%d:%s\n", (int)strMsg.c_str(), strMsg.c_str()); //0x01:Test
 	cout << strMsg2.c_str() << endl; //DataTest
-	printf("%d:%s\n", strMsg2.c_str(), strMsg2.c_str()); //0x02: DataTest
-	cout << srtCopyMsg.c_str() << endl; //0x01: Test
-	printf("%d:%s\n", srtCopyMsg.c_str(), srtCopyMsg.c_str()); //0x01:Test -> 0x03:Test
+	printf("%d:%s\n", (int)strMsg2.c_str(), strMsg2.c_str()); //0x02:DataTest
+	printf("%d:%s\n", (int)strCopyMsg.c_str(), strCopyMsg.c_str()); //0x03:Test
+	printf("%d:%s\n", (int)strCopyMsg2.c_str(), strCopyMsg2.c_str()); //0x02:Test
 	cout << "##### FakeStringMain End######" << endl;
 }
+//[] 매개변수
+//1.char 2.bool 3.int
+void HangManGameMain()
+{
+	Mockup::string strAnswer = "GAME";
+	Mockup::string strEmpty = "____";
+	char cInput;
+	while (true)
+	{
+		printf("Q:%s\n", strEmpty.c_str());
+		scanf_s("%c", &cInput);
+
+		int nResultIdx = strAnswer.find(cInput);//찾은 문자열의 주소값을 반환한다.
+		if (nResultIdx != -1)
+		{
+			//찾은 문자열의주소에서 문자열시작주소를 빼서 현재 인덱스값을 계산한다.
+			strEmpty.replace(nResultIdx, 1, 1, cInput);
+		}
+		else
+			printf("not found!\n");
+
+		if (strAnswer == strEmpty)
+		{
+			printf("Q:%s\n", strEmpty.c_str());
+			break;
+		}
+		else
+			printf("strcmp:%d\n", nResultIdx);
+	}
+	for (int i = 0; i < strAnswer.size(); i++)
+		cout << i << ":" << strAnswer[i] << endl;
+	Mockup::string strSum = strAnswer + strEmpty;
+	
+}
+
 
 void main()
 {
