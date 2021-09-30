@@ -18,7 +18,9 @@ private:
 	string m_strColor;
 	int m_nSpeed;
 	E_GEAR m_eGear;
+	static int m_nCount; //자동차가 생산된 대수 //정적맴버변수의 선언
 public:
+	static int GetCount() { return m_nCount; } //정적맴버함수
 	//매개변수로 값을 받고 내부에서 값을 변경한다?
 	void SetGear(int nGear)
 	{
@@ -29,6 +31,7 @@ public:
 	//※잘못된 인터페이스의 설계
 	//맴버를 입력받기위한 함수를 따로 만드는것은 상식적이지만,
 	//세터가 내부에서 매개변수의 값을 바꾸는것은 의도하지않은 동작을 일으킬수있다.
+	//그렇다고하지만, 실제로 이러한 함수를 내부에 클래스내부에 포함하는 것도 일반적이지는 않다.
 	void InputGear()
 	{
 		int nGear;
@@ -54,25 +57,27 @@ public:
 public:
 	CCar(string color = "Gray", E_GEAR gear =E_GEAR::N, int speed = 0) //생성자를 이용하여, 클래스생성시에 초기값을 반드시 할당하도록 만들수있다.
 	{
-		cout << "CCar[" << this << "]:" << color << endl;
+		m_nCount++;
+		cout << "CCar[" << this << "/" << m_nCount << "]:" << color << endl;
 		m_strColor = color;
 		m_eGear = gear;
 		m_nSpeed = speed;
 	}
-
 	//복사생성자: 객체가 초기화될때 다른객체에서 복사가되면 호출되는 함수
 	CCar(CCar& car)
 	{
+		m_nCount++;
 		//memcpy_s(this, sizeof(CCar), &car, sizeof(CCar)); //일부컴퓨터에서 문제가 발생하는 경우가 있음.
 		this->m_nSpeed = car.m_nSpeed;
 		this->m_strColor = car.m_strColor;
 		this->m_eGear = car.m_eGear;
-		cout << "CCar Copy[" << this << "]:" << m_strColor << endl;
+		cout << "CCar Copy[" << this << "/" << m_nCount << "]:" << m_strColor << endl;
 	}
 	//소멸자: 메모리가 해제될때 호출되는 함수.
 	~CCar()
 	{
-		cout << "~CCar[" << this << "]:" << m_strColor << endl;
+		m_nCount--;
+		cout << "~CCar[" << this << "/"<<m_nCount<<"]:" << m_strColor << endl;
 	}
 	void Accel()
 	{
@@ -91,6 +96,9 @@ public:
 		cout << "Speed:" << m_nSpeed << endl;
 	}
 };
+
+int CCar::m_nCount = 0; //정적맴버변수의 정의
+
 void SwapCarVal(CCar cCarA, CCar cCarB)
 {
 	cout << "SwapCarVal" << endl;
@@ -190,7 +198,9 @@ void BuyCarMain()
 void main()
 {
 	cout << "main() Start!" << endl;
+	cout << "CarCount:" << CCar::GetCount() << endl;
 	//CarTestMain();
 	SwapTestMain();
+	cout << "CarCount:" << CCar::GetCount() << endl;
 	cout << "main() End!" << endl;
 }
