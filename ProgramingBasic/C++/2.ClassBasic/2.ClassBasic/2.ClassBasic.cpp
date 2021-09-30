@@ -18,7 +18,24 @@ private:
 	string m_strColor;
 	int m_nSpeed;
 	E_GEAR m_eGear;
-
+public:
+	//매개변수로 값을 받고 내부에서 값을 변경한다?
+	void SetGear(int nGear)
+	{
+		cout << "Input ";
+		cin >> nGear;
+		m_eGear = (E_GEAR)nGear;
+	}
+	//※잘못된 인터페이스의 설계
+	//맴버를 입력받기위한 함수를 따로 만드는것은 상식적이지만,
+	//세터가 내부에서 매개변수의 값을 바꾸는것은 의도하지않은 동작을 일으킬수있다.
+	void InputGear()
+	{
+		int nGear;
+		cout << "Input ";
+		cin >> nGear;
+		m_eGear = (E_GEAR)nGear;
+	}
 	//Getter: 어떤 멤버변수를 가져오는 함수. 
 	string GetColor() { return m_strColor; }; //색상을 변경하면 범죄행위다 기본적으로는 관찰만 가능하다.
 	int GetSpeed() { return m_nSpeed; }  //물리법칙에 의해서 속도를 변경하는 방법은 가속/감속 말고는 존제하지않으므로, 변경을 못하게한다.
@@ -34,6 +51,7 @@ private:
 	//}
 //private: //생성자가 private이라면 객체 생성이 불가능해진다. 그러므로 싱글톤이외에 거이 쓸일은 없다.
 	//디폴트매개변수를 이용하여 기본생성자를 지정하지않아도 가능하게 만들수있다.
+public:
 	CCar(string color = "Gray", E_GEAR gear =E_GEAR::N, int speed = 0) //생성자를 이용하여, 클래스생성시에 초기값을 반드시 할당하도록 만들수있다.
 	{
 		cout << "CCar[" << this << "]:" << color << endl;
@@ -41,7 +59,7 @@ private:
 		m_eGear = gear;
 		m_nSpeed = speed;
 	}
-public:
+
 	//복사생성자: 객체가 초기화될때 다른객체에서 복사가되면 호출되는 함수
 	CCar(CCar& car)
 	{
@@ -123,7 +141,52 @@ void CarTestMain()
 
 	cout << "CarTestMain() End!" << endl;
 }
-
+//자동차를 구매하기
+//1. 매장을 방문한다. 
+//2. 시승을 한다
+//3. 마음에 들면 계약서를 작성한다.
+//4. 차가 생산한다.
+//5. 생산된 차를 출고한다.
+//6. 자차로 사용한다.
+void BuyCarMain()
+{
+	string strInputColor;
+	cout << "Color?:";
+	cin >> strInputColor;
+	cout << "Car Produuces!" << endl;
+	CCar cCar(strInputColor);
+	cout << "#### Shipping Car ####" << endl;
+	int nCtrl = 0;
+	do
+	{
+		cout << "Car Drive" << endl;
+		cin >> nCtrl;
+		switch (nCtrl)
+		{
+		case 1: 
+			int nGear;
+			cout << "Input Gear" << endl;
+			cin >> nGear;
+			cCar.SetGear((CCar::E_GEAR)nGear);
+			break;
+		case 2:
+			cout << "Accelerate" << endl;
+			cCar.Accel();
+			break;
+		case 3:
+			cout << "break" << endl;
+			cCar.Accel();
+			break;
+		default:
+			nCtrl = -1;
+			break;
+		}
+		cCar.Display();
+	} 	while (nCtrl != -1);
+	
+}
+//매개변수로 입력를 만들고 함수안에서 입력함수를 통해 값을 받는다.
+//
 void main()
 {
 	cout << "main() Start!" << endl;

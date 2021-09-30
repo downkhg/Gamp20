@@ -13,6 +13,8 @@ void STDStringMain()
 	string strCopyMsg = strMsg; //복사생성자
 	string strCopyMsg2;
 	strCopyMsg2 = strMsg2;
+	//strCopyMsg2.append("Add");
+	//strCopyMsg += "Add";
 
 	cout << strMsg.c_str() << endl; //const char*를 리턴하는 함수 //Test
 	printf("%d:%s\n", (int)strMsg.c_str(), strMsg.c_str()); //0x01:Test
@@ -95,6 +97,8 @@ namespace Mockup
 		{
 			return pStr;
 		}
+		//함수나 연산자를 정의할때 고려해야하는것중 아닌것은?
+		// 1.함수 2.리턴값 3.매개변수
 		//함수를 정의할때 리턴값과 매개변수를 고려해서 선택하면된다.
 		int find(const char)
 		{
@@ -109,6 +113,7 @@ namespace Mockup
 		{
 			return false;
 		}
+		
 		string operator+(const string& str)
 		{
 			string strTemp;
@@ -126,6 +131,12 @@ namespace Mockup
 		char operator[](int idx)
 		{
 			return 0;
+		}
+		//friend: 다른객체가 자신의 객체의 private함수를 접근하게만드는 키워드. 통상적으로 사용할일은없음.
+		//다만 연산자오버로딩할때 매개변수가 2개면 반드시 friend함수를 사용해야한다.
+		friend ostream& operator<<(ostream& os, string str)
+		{
+			return os << str.c_str() << endl;
 		}
 	};
 }
@@ -145,6 +156,7 @@ void MockupStringMain()
 	cout << strMsg2.c_str() << endl; //DataTest
 	printf("%d:%s\n", (int)strMsg2.c_str(), strMsg2.c_str()); //0x02:DataTest
 	printf("%d:%s\n", (int)strCopyMsg.c_str(), strCopyMsg.c_str()); //0x03:Test
+	cout << strCopyMsg << endl;
 	printf("%d:%s\n", (int)strCopyMsg2.c_str(), strCopyMsg2.c_str()); //0x02:Test
 	cout << "##### FakeStringMain End######" << endl;
 }
