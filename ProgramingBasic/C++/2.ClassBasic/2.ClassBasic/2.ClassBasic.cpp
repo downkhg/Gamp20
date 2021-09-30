@@ -18,8 +18,10 @@ private:
 	string m_strColor;
 	int m_nSpeed;
 	E_GEAR m_eGear;
+	//모든객체가 공유한다. 객체가 생성되기전에 접근가능한 맴버변수.
 	static int m_nCount; //자동차가 생산된 대수 //정적맴버변수의 선언
 public:
+	//객체가 생성되기전에 접근가능한 맴버함수.
 	static int GetCount() { return m_nCount; } //정적맴버함수
 	//매개변수로 값을 받고 내부에서 값을 변경한다?
 	void SetGear(int nGear)
@@ -96,8 +98,9 @@ public:
 		cout << "Speed:" << m_nSpeed << endl;
 	}
 };
-
-int CCar::m_nCount = 0; //정적맴버변수의 정의
+//정적맴버변수는 객체가 생성전에도 접근가능해야한다. 
+//그러므로 프로그램이 종료시까지 남아있는 메모리를 만들어야한다.
+int CCar::m_nCount = 0; //정적맴버변수의 정의 //전역변수처럼 정적맴버변수를 생성한다.
 
 void SwapCarVal(CCar cCarA, CCar cCarB)
 {
