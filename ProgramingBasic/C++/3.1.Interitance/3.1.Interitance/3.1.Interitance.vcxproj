@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="Car.h" />
     <ClInclude Include="InheritanceCar.h" />
+    <ClInclude Include="Radio.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

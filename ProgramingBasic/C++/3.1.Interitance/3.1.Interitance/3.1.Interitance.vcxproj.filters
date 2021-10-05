@@ -26,6 +26,9 @@
     <ClInclude Include="Car.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Radio.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">
