@@ -31,7 +31,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd">
+    <None Include="CarInheritance.cd">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="Car.cd">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="Radio.cd">
       <Filter>리소스 파일</Filter>
     </None>
   </ItemGroup>

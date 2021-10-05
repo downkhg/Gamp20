@@ -116,6 +116,15 @@ namespace HasA_InRef
 		{
 			m_pSpeacker = speaker;
 			m_pAntena = antena;
+			cout << "CRadio[" << this << "]";
+		}
+		void SetSpeaker(CSpeaker* speaker)
+		{
+			m_pSpeacker = speaker;
+		}
+		void SetAntena(CAntena* antena)
+		{
+			m_pAntena = antena;
 		}
 		void On()
 		{

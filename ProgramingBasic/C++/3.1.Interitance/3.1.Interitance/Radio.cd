@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Normal::CSpeaker">
+    <Position X="4.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAEAAAIAAAAgAAAAAAAAAAAAAEAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Radio.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Normal::CAntena">
+    <Position X="6.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAACAAAAAAAAAIAAAAAAAAAAQCAAAA=</HashCode>
+      <FileName>Radio.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inheritance::CRadio">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Radio.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HasA_InClass::CRadio">
+    <Position X="8.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIABAAwAACAAAAAIAAAAAAAAAAAAEAACAAIA=</HashCode>
+      <FileName>Radio.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HasA_InRef::CRadio">
+    <Position X="10.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIABAAwAACAAAIAIAAAAAAAAAAAAEAACAAIA=</HashCode>
+      <FileName>Radio.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

@@ -147,7 +147,9 @@
     <ClInclude Include="Radio.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <None Include="Car.cd" />
+    <None Include="CarInheritance.cd" />
+    <None Include="Radio.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
