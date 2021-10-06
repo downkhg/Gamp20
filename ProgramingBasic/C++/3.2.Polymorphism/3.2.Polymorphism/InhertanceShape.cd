@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Inheritance::Shape">
+    <Position X="1" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAgAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shape.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inheritance::Circle">
+    <Position X="1" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAgAAAAAAAAAAAAgAAEAAAAAAAAACAAA=</HashCode>
+      <FileName>Shape.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inheritance::TriAngle">
+    <Position X="3" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAMAAgCAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shape.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inheritance::RectAangle">
+    <Position X="3" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAAAAAAAgAAAAAABAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Shape.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Inheritance::Vector">
+    <Position X="5.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBgAAAEAAA=</HashCode>
+      <FileName>Shape.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

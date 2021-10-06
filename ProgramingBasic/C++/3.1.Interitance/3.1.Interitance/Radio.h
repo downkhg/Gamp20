@@ -9,8 +9,8 @@ namespace Normal
 		bool m_isOn;
 		int m_nVolue;
 	public:
-		CSpeaker() { cout << "CSpeaker[" << this << "]"; };
-		~CSpeaker() { cout << "~CSpeaker[" << this << "]"; };
+		CSpeaker() { cout << "CSpeaker[" << this << "]\n"; };
+		~CSpeaker() { cout << "~CSpeaker[" << this << "]\n"; };
 
 		void On()
 		{
@@ -31,8 +31,8 @@ namespace Normal
 	{
 		float m_fFrequency;
 	public:
-		CAntena() { cout << "CAntena[" << this << "]"; };
-		~CAntena() { cout << "~CAntena[" << this << "]"; };
+		CAntena() { cout << "CAntena[" << this << "]\n"; };
+		~CAntena() { cout << "~CAntena[" << this << "]\n"; };
 
 		void SetFrequency(float frequency)
 		{
@@ -47,14 +47,15 @@ namespace Normal
 }
 
 using namespace Normal;
-
+//상속을 받아 만들었으므로, 따로 손을 대지않아도된다.
+//대신 부모가 변경되면 자식도 영향을 받는다.
 namespace Inheritance
 {
 	class CRadio : public CSpeaker, CAntena
 	{
 	public:
-		CRadio() { cout << "CRadio[" << this << "]"; };
-		~CRadio() { cout << "~CRadio[" << this << "]"; };
+		CRadio() { cout << "CRadio[" << this << "]\n"; };
+		~CRadio() { cout << "~CRadio[" << this << "]\n"; };
 	};
 
 	void RadioMain()
@@ -62,7 +63,8 @@ namespace Inheritance
 		CRadio cRadio;
 	}
 }
-
+//부모가 변경되어 추가 기능이 생성되더라도,
+//자식은 영향이 적다.
 namespace HasA_InClass
 {
 	class CRadio
@@ -70,8 +72,8 @@ namespace HasA_InClass
 		CSpeaker m_cSpeacker;
 		CAntena m_cAntena;
 	public:
-		CRadio() { cout << "CRadio[" << this << "]"; };
-		~CRadio() { cout << "~CRadio[" << this << "]"; };
+		CRadio() { cout << "CRadio[" << this << "]\n"; };
+		~CRadio() { cout << "~CRadio[" << this << "]\n"; };
 
 		void On()
 		{
@@ -101,7 +103,9 @@ namespace HasA_InClass
 		CRadio cRadio;
 	}
 }
-
+//스퍼커나 안테나를 따로 만들어서 사용하므로,
+//라디오가 아니라 다른곳에서도 재활용가능하다.
+//그러나 코드량이 많고 신경쓸것도 많다.
 namespace HasA_InRef
 {
 	class CRadio
@@ -109,14 +113,14 @@ namespace HasA_InRef
 		CSpeaker* m_pSpeacker;
 		CAntena* m_pAntena;
 	public:
-		CRadio() { cout << "CRadio[" << this << "]"; };
-		~CRadio() { cout << "~CRadio[" << this << "]"; };
+		CRadio() { cout << "CRadio[" << this << "]\n"; };
+		~CRadio() { cout << "~CRadio[" << this << "]\n"; };
 
 		CRadio(CSpeaker* speaker, CAntena* antena)
 		{
 			m_pSpeacker = speaker;
 			m_pAntena = antena;
-			cout << "CRadio[" << this << "]";
+			cout << "CRadio[" << this << "]\n";
 		}
 		void SetSpeaker(CSpeaker* speaker)
 		{
