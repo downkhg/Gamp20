@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{d42687fe-c715-4890-b2b0-d0dfad619694}</ProjectGuid>
-    <RootNamespace>My32Polymorphism</RootNamespace>
+    <ProjectGuid>{7db4ae6f-0e70-47bb-b3f0-c7dde7a2abc6}</ProjectGuid>
+    <RootNamespace>My5Templet</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,14 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="InhertanceShape.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="3.2.Polymorphism.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="PolymrphismShape.h" />
-    <ClInclude Include="Shape.h" />
+    <ClCompile Include="5.Templet.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

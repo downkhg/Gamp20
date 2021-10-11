@@ -115,9 +115,9 @@ namespace Inheritance
 		Shape cShape;
 		Circle cCrilce({ 1,1 }, 1);
 		cShape.Draw();
-		cShape.Shape::Draw();
+		cShape.Shape::Draw();//부모의 멤버함수의 호출
 		cCrilce.Draw();
-		cCrilce.Shape::Draw();
+		cCrilce.Shape::Draw();//부모의 멤버함수의 호출
 	}
 	//프로그램 실행중에 선택하여 모양을 여러개를 그리려면 어떻게해야하는가?//동적으로 메모리를 할당받아야한다.
 	void RuntimeShapeDrawMain()
@@ -128,12 +128,12 @@ namespace Inheritance
 		arrShape[0] = (void*)new Circle();
 		arrShape[1] = (void*)new RectAangle();
 		arrShape[2] = (void*)new TriAngle();
-
-		//for (int i = 0; i < 3; i++)
-		//	(Shape*)arrShape[i]->Draw();
+		//각각의 객체를 일일히 캐스팅하면 번거롭고 굳이 배열에 관리한 이유도 찾기어렵다.
+		for (int i = 0; i < 3; i++)
+			((Shape*)arrShape[i])->Draw();
 		((Circle*)arrShape[0])->Draw();
-		((RectAangle*)(arrShape[0]))->Draw();
-		((TriAngle*)(arrShape[0]))->Draw();
+		((RectAangle*)(arrShape[1]))->Draw();
+		((TriAngle*)(arrShape[2]))->Draw();
 	}
 	//부모클래스의 함수에 virtual을 붙이면 가상함수가되고,
 	//부모포인터에서도 자식의 같은 이름의함수를 호출가능해진다.
@@ -147,5 +147,8 @@ namespace Inheritance
 
 		for (int i = 0; i < 3; i++)
 			arrShape[i]->Draw();
+
+		for (int i = 0; i < 3; i++)
+			delete(arrShape[i]);
 	}
 }

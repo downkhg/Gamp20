@@ -15,21 +15,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="InhertanceShape.cd">
-      <Filter>리소스 파일</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="3.2.Polymorphism.cpp">
+    <ClCompile Include="5.Templet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="PolymrphismShape.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Shape.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,7 +4,10 @@
 
 void main()
 {
-	Inheritance::ShapeMain();
+	//Inheritance::ShapeMain();
 	//Inheritance::RuntimeShapeDrawMain();
 	//Inheritance::PolymrphismShapeDrawMain();
+
+	Polymrphism::RuntimeShapeDrawMain();
+	//Polymrphism::PolymrphismShapeDrawMain();
 }
