@@ -29,6 +29,9 @@
     <ClInclude Include="Radio.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="AcessType.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="CarInheritance.cd">

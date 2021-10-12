@@ -7,7 +7,8 @@ namespace Inhertance
 {
 	class CVehicle
 	{
-	private:
+	//private:
+	protected:
 		int m_nSpeed;
 		int m_nGear;
 		int m_nSeat;
@@ -46,7 +47,7 @@ namespace Inhertance
 	class CBike : public CVehicle
 	{
 	public:
-		CBike(int seat = 1) { cout << "CBike[" << this << "]" << endl; }
+		CBike(int seat = 1):CVehicle(seat) { cout << "CBike[" << this << "]" << endl; }
 		~CBike() { cout << "~CBike[" << this << "]" << endl; }
 	};
 
