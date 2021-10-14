@@ -7,18 +7,18 @@ using namespace std;
 //알고리즘: 피자조각수/사람수 = 한사람당 피자조각수
 void PizzaSiliceMain()
 {
-	int nPizzaSlice;
-	int nPersons;
-	int nSlicePerPerson;
+	int nPizzaSlice; //?
+	int nPersons; //?
+	int nSlicePerPerson; //?
 
 	cout << "피자조각수:";
-	cin >> nPizzaSlice;
+	cin >> nPizzaSlice;//0
 	cout << "사람수:";
-	cin >> nPersons;
+	cin >> nPersons;//10
 
 	try
 	{
-		if (nPizzaSlice <= 0)
+		if (nPizzaSlice <= 0) //1 <= 0 -> T
 			throw "피자수가 너무 적습니다!";
 		else if (nPersons <= 0)
 			throw "사람이 없습니다!";
@@ -30,10 +30,10 @@ void PizzaSiliceMain()
 	//쓰로우된 형식에 따라 케치가 된다.
 	catch(const char* e)
 	{
-		cout << e;
+		cout << e;//피자수가 너무 적습니다!
 	}
 }
-
+//다형성: 부모포인터에서 자식객체를 할당하여 사용하는 것.
 //try catch에서 다형성도 작동을 할것인가?
 class Parent {
 public:
@@ -42,12 +42,12 @@ public:
 class ChildA : public Parent
 {
 public:
-	void Display() { cout << "ChildA" << endl; };
+	void Display() override { cout << "ChildA" << endl; };
 };
 class ChildB : public Parent
 {
 public:
-	void Display() { cout << "ChildB" << endl; };
+	void Display() override { cout << "ChildB" << endl; };
 };
 //예외처리에서도 다형성이 성립한다. 
 void PolymorphismExceptionMain()
@@ -93,14 +93,15 @@ void TypeIdMain()
 //변환이 불가능한 형식을 사용하면 컴파일에러가남.
 void StaticCastMain()
 {
-	int nDataCost = (int)3.14f;
-	int nDataStaticCast = static_cast<int>(3.14f);
+	int nDataCost = (int)3.14f; //3
+	int nDataStaticCast = static_cast<int>(3.14f); //3
 
-	int* pIntCast = static_cast<int*>(&nDataCost);
+	int* pIntCast = static_cast<int*>(&nDataCost); //3?
+	////포인터값을 받아서 다른타입으로 변환을 수행하면 오류가 난다.
 	//float* pfloatCast = static_cast<int*>(&nDataCost);//컴파일오류
 
-	cout << "DataCost:" << nDataCost << endl;
-	cout << "DataStaticCast:" << nDataStaticCast << endl;
+	cout << "DataCost:" << nDataCost << endl; //3
+	cout << "DataStaticCast:" << nDataStaticCast << endl; //3?
 }
 //동적할당변수/객체
 void DynamicCastMain()

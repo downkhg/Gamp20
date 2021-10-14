@@ -135,7 +135,7 @@ namespace Mokeup
 
 void main()
 {
-	FunctionTempletMain();
-	//TempletClassMain();
+	//FunctionTempletMain();
+	TempletClassMain();
 	//Mokeup::StackMain();
 }
