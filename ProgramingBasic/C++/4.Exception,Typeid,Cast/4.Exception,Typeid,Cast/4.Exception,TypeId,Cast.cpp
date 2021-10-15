@@ -18,7 +18,7 @@ void PizzaSiliceMain()
 
 	try
 	{
-		if (nPizzaSlice <= 0) //1 <= 0 -> T
+		if (nPizzaSlice <= 0) //0 <= 0 -> T
 			throw "피자수가 너무 적습니다!";
 		else if (nPersons <= 0)
 			throw "사람이 없습니다!";
@@ -80,11 +80,11 @@ void TypeIdMain()
 	Parent* pParentA = new ChildA();
 	Parent* pParentB = new ChildB();
 
-	cout << "ParentA:" << typeid(pParentA).name() << endl;
-	cout << "ParentB:" << typeid(pParentB).name() << endl;
+	cout << "ParentA:" << typeid(pParentA).name() << endl; //class Parent
+	cout << "ParentB:" << typeid(pParentB).name() << endl; //class Parent
 
-	cout << "ParentA*:" << typeid(*pParentA).name() << endl;
-	cout << "ParentB*:" << typeid(*pParentB).name() << endl;
+	cout << "ParentA*:" << typeid(*pParentA).name() << endl; //class ChildA
+	cout << "ParentB*:" << typeid(*pParentB).name() << endl; //class ChildB
 
 	delete(pParentA);
 	delete(pParentB);
@@ -120,7 +120,7 @@ void DynamicCastMain()
 	//자식->부모: 문제X
 	Parent* pChildToParentDynamicCast = dynamic_cast<Parent*>(pChildA);
 	//다음과 같이 문제가 있는 경우의 변환일경우 캐스팅이되지않고 null을 반환한다.
-	cout << "pParentToChildDynamicCast:" << (int)pParentToChildDynamicCast << endl;
+	cout << "pParentToChildDynamicCast:" << (int)pParentToChildDynamicCast << endl; //0 -> NULL
 	cout << "pChildToParentDynamicCast:" << (int)pChildToParentDynamicCast << endl;
 	delete pParent;
 	delete pChildA;
