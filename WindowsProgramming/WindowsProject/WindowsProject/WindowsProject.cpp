@@ -121,6 +121,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
+//메세지:
 //핸들러매뉴: 이벤트가 약속된 번호를 지정해서 커맨드에 해당하는 번호를 작동하게 만들수있다.
 #define HMENU_MSGBOX 1
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
