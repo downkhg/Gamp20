@@ -69,6 +69,7 @@ BEGIN_MESSAGE_MAP(CMFCRPGDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_NOTIFY(UDN_DELTAPOS, IDC_SPIN_HP, &CMFCRPGDlg::OnDeltaposSpinHp)
 END_MESSAGE_MAP()
 
 
@@ -104,6 +105,14 @@ BOOL CMFCRPGDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
+	m_comboClass.AddString(_T("전사"));
+	m_comboClass.AddString(_T("궁수"));
+	m_comboClass.AddString(_T("마법사"));
+
+	m_nHP = 10;
+	CString strTemp;
+	strTemp.Format(_T("%d"), m_nHP);
+	m_editHP.SetWindowTextW(strTemp);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -157,3 +166,28 @@ HCURSOR CMFCRPGDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CMFCRPGDlg::OnDeltaposSpinHp(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	LPNMUPDOWN pNMUpDown = reinterpret_cast<LPNMUPDOWN>(pNMHDR);
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CString strTemp;
+	if (pNMUpDown->iDelta < 0)
+	{
+		m_nHP++;
+		m_nBonus--;
+	}
+	else
+	{
+		m_nHP--;
+		m_nBonus++;
+	}
+
+	strTemp.Format(_T("%d"), m_nHP);
+	m_editHP.SetWindowTextW(strTemp);
+	strTemp.Format(_T("BonusPoint: %d"), m_nBonus);
+	m_staticBonus.SetWindowTextW(strTemp);
+
+	*pResult = 0;
+}

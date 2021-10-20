@@ -36,4 +36,8 @@ public:
 	CComboBox m_comboClass;
 	CEdit m_editHP;
 	CStatic m_staticBonus;
+
+	int m_nHP;
+	int m_nBonus = 20;
+	afx_msg void OnDeltaposSpinHp(NMHDR* pNMHDR, LRESULT* pResult);
 };
