@@ -58,13 +58,13 @@ struct Status {
 
 class Item {
 public:
-	enum E_ITEM_KIND { WEAPON, ARMOR, ACC, ETC };
+	enum E_ITEM_KIND { WEAPON, ARMOR, ACC, POTION, THROW };
 	E_ITEM_KIND eItemKind;
 	string strName;
 	string strComment;
 	Status sFuction;
 	int nGold;
-	Item(E_ITEM_KIND kind = ETC, string name = "none", string comment = "none", Status status = Status(), int gold = 0)
+	Item(E_ITEM_KIND kind = THROW, string name = "none", string comment = "none", Status status = Status(), int gold = 0)
 	{
 		Set(kind, name, comment, status, gold);
 	}
@@ -91,10 +91,10 @@ public:
 		m_listItems[3] = Item(Item::E_ITEM_KIND::ARMOR, "본아머", "방어력 증가", Status(0, 0, 20), 100);
 		m_listItems[4] = Item(Item::E_ITEM_KIND::ACC, "나무반지", "체력 증가", Status(10), 100);
 		m_listItems[5] = Item(Item::E_ITEM_KIND::ACC, "해골반지", "체력 증가", Status(20), 100);
-		m_listItems[6] = Item(Item::E_ITEM_KIND::ETC, "힐링포션", "HP회복", Status(100), 100);
-		m_listItems[7] = Item(Item::E_ITEM_KIND::ETC, "마나포션", "MP회복", Status(0, 100), 100);
-		m_listItems[8] = Item(Item::E_ITEM_KIND::ETC, "짱돌", "단일 적 대미지", Status(0, 0, 50), 100);
-		m_listItems[9] = Item(Item::E_ITEM_KIND::ETC, "목검", "다수 적 대미지", Status(0, 0, 50), 100);
+		m_listItems[6] = Item(Item::E_ITEM_KIND::POTION, "힐링포션", "HP회복", Status(100), 100);
+		m_listItems[7] = Item(Item::E_ITEM_KIND::POTION, "마나포션", "MP회복", Status(0, 100), 100);
+		m_listItems[8] = Item(Item::E_ITEM_KIND::THROW, "짱돌", "단일 적 대미지", Status(0, 0, 50), 100);
+		m_listItems[9] = Item(Item::E_ITEM_KIND::THROW, "목검", "다수 적 대미지", Status(0, 0, 50), 100);
 	}
 	Item GetItem(int idx)
 	{
@@ -109,7 +109,13 @@ class Player {
 	int m_nExp;
 
 	vector<Item> m_listIventory;
+	vector<Item> m_listEqument;
 public:
+	Player()
+	{
+		m_listEqument.resize(3);
+	}
+
 	void SetIventory(Item item)
 	{
 		m_listIventory.push_back(item);
@@ -121,6 +127,28 @@ public:
 	void DeleteIventory(int idx)
 	{
 		m_listIventory.erase(m_listIventory.begin() + idx);
+	}
+
+	bool UseItem(int idx)
+	{
+		Item cItem = GetIventoryIdx(idx);
+
+		if (cItem.eItemKind == Item::E_ITEM_KIND::THROW)
+			return false;
+
+		int nIdx = cItem.eItemKind;
+		m_listEqument[nIdx] = cItem;
+		m_sStatus = m_sStatus + cItem.sFuction;
+		DeleteIventory(idx);
+
+		return true;
+	}
+
+	void ReleaseEqument(int idx)
+	{
+		Item cItem = m_listEqument[idx];
+		m_sStatus = m_sStatus - cItem.sFuction;
+		SetIventory(cItem);
 	}
 
 	void Set(string strName, int _hp, int _mp, int _str, int _int, int _def, int _exp)
@@ -173,16 +201,19 @@ public:
 	{
 		cout << "######### " << m_strName << "######### " << endl;
 		m_sStatus.Show();
+		cout << "######### Equment #########" << endl;
+		for (int i = 0; i < m_listEqument.size(); i++)
+			cout << i << ":" << m_listEqument[i].strName << endl;
 		cout << "######### Inventory ######### " << endl;
 		for (int i = 0; i < m_listIventory.size(); i++)
 			cout << i << ":" << m_listIventory[i].strName << endl;
 	}
 };
-
+//상점을 플레이를 이용하여 만들어보기. //사기,팔기
 void main()
 {
-	enum E_STAGE { EXIT = -1, CRATE, TOWN, FILED, BATTLE, GAME_OVER, THE_END, MAX };
-	const char* strStageName[] = { "CRATE", "TOWN", "FILED", "BATTLE", "GAME_OVER", "THE_END" };
+	enum E_STAGE { EXIT = -1, CRATE, IVNETORY, TOWN, FILED, BATTLE, GAME_OVER, THE_END, MAX };
+	const char* strStageName[] = { "CRATE", "INVENTORY","TOWN", "FILED", "BATTLE", "GAME_OVER", "THE_END" };
 
 	enum E_MONSTER { SILME, SKELETON, BOSS, MON_MAX };
 	const char* strMonsterName[] = { "SILME", "SKELETON", "BOSS" };
@@ -207,11 +238,39 @@ void main()
 			cout << "케릭터 이름을 입력하세요!:";
 			cin >> name;
 			cPlayer.Set(name, 100, 100, 20, 10, 10, 0);
+			eStage = E_STAGE::TOWN;
+		}
+		break;
+		case E_STAGE::IVNETORY:
+		{
+			cPlayer.Show();
+			int nSelect;
+			cout << "메뉴를 선택하세요!(1: 아이템사용. 2: 장비해제 etc: 마을):";
+			cin >> nSelect;
+			if (nSelect == 1)
+			{
+				cout << "사용할 아이템을 구하세요!:";
+				cin >> nSelect;
+				if (!cPlayer.UseItem(nSelect))
+					cout << "사용할수없습니다!" << endl;
+			}
+			else if (nSelect == 2)
+			{
+				cout << "장비해제할 장비함에서 선택하세요!:";
+				cin >> nSelect;
+				cPlayer.ReleaseEqument(nSelect);
+			}
+			else
+				eStage = E_STAGE::TOWN;
 		}
 		break;
 		case E_STAGE::TOWN:
 		{
 			cout << "마을 입니다." << endl;
+			cout << "어디로 가시겠습니까?" << endl;
+			for (int i = E_STAGE::CRATE + 1; i < E_STAGE::BATTLE; i++)
+				cout << i << ":" << strStageName[i] << ",";
+			cin >> eStage;
 		}
 		break;
 		case E_STAGE::FILED:
@@ -233,6 +292,7 @@ void main()
 				cMonster.Set("Boss", 300, 100, 50, 10, 10, 100);
 				break;
 			}
+			eStage = E_STAGE::BATTLE;
 		}
 		break;
 		case E_STAGE::BATTLE:
@@ -264,9 +324,6 @@ void main()
 		default:
 			break;
 		}
-		cout << "어디로 가시겠습니까?" << endl;
-		for (int i = 0; i < E_STAGE::MAX; i++)
-			cout << i << ":" << strStageName[i] << ",";
-		cin >> eStage;
+
 	}
 }
