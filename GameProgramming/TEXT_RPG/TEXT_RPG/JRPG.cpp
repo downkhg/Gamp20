@@ -64,7 +64,7 @@ public:
 	string strComment;
 	Status sFuction;
 	int nGold;
-	Item(E_ITEM_KIND kind, string name, string comment, Status status, int gold)
+	Item(E_ITEM_KIND kind = ETC, string name = "none", string comment = "none", Status status = Status(), int gold = 0)
 	{
 		Set(kind, name, comment, status, gold);
 	}
@@ -75,6 +75,30 @@ public:
 		strComment = comment;
 		sFuction = status;
 		nGold = gold;
+	}
+};
+
+class ItemManager {
+	vector<Item> m_listItems;
+public:
+	enum E_ITEM_LIST { WOOD_SOWRD, BONE_SOWRD, WOOD_ARMOR, BONE_AMROR, WOOD_RING, BONE_RING, HP_POTION, MP_POTION, STONE, BOOM };
+	ItemManager()
+	{
+		m_listItems.resize(10);
+		m_listItems[0] = Item(Item::E_ITEM_KIND::WEAPON, "목검", "데미지 증가", Status(0, 0, 10), 100);
+		m_listItems[1] = Item(Item::E_ITEM_KIND::WEAPON, "본소드", "데미지 증가", Status(0, 0, 20), 100);
+		m_listItems[2] = Item(Item::E_ITEM_KIND::ARMOR, "나무갑옷", "방어력 증가", Status(0, 0, 0, 10), 100);
+		m_listItems[3] = Item(Item::E_ITEM_KIND::ARMOR, "본아머", "방어력 증가", Status(0, 0, 20), 100);
+		m_listItems[4] = Item(Item::E_ITEM_KIND::ACC, "나무반지", "체력 증가", Status(10), 100);
+		m_listItems[5] = Item(Item::E_ITEM_KIND::ACC, "해골반지", "체력 증가", Status(20), 100);
+		m_listItems[6] = Item(Item::E_ITEM_KIND::ETC, "힐링포션", "HP회복", Status(100), 100);
+		m_listItems[7] = Item(Item::E_ITEM_KIND::ETC, "마나포션", "MP회복", Status(0, 100), 100);
+		m_listItems[8] = Item(Item::E_ITEM_KIND::ETC, "짱돌", "단일 적 대미지", Status(0, 0, 50), 100);
+		m_listItems[9] = Item(Item::E_ITEM_KIND::ETC, "목검", "다수 적 대미지", Status(0, 0, 50), 100);
+	}
+	Item GetItem(int idx)
+	{
+		return m_listItems[idx];
 	}
 };
 
@@ -157,29 +181,92 @@ public:
 
 void main()
 {
+	enum E_STAGE { EXIT = -1, CRATE, TOWN, FILED, BATTLE, GAME_OVER, THE_END, MAX };
+	const char* strStageName[] = { "CRATE", "TOWN", "FILED", "BATTLE", "GAME_OVER", "THE_END" };
+
+	enum E_MONSTER { SILME, SKELETON, BOSS, MON_MAX };
+	const char* strMonsterName[] = { "SILME", "SKELETON", "BOSS" };
+
+	int eStage = E_STAGE::CRATE;
+
+	ItemManager cItemManager;
 	Player cPlayer;
 	Player cMonster;
 
-	cPlayer.Set("Player", 100, 100, 20, 10, 10, 0);
 	cMonster.Set("Slime", 100, 100, 20, 10, 10, 100);
-	cMonster.SetIventory(Item(Item::E_ITEM_KIND::WEAPON, "목검", "데미지 증가", Status(0, 0, 10), 100));
+	cMonster.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_SOWRD));
+	//cMonster.SetIventory(Item(Item::E_ITEM_KIND::WEAPON, "목검", "데미지 증가", Status(0, 0, 10), 100));
 
-	//전투는 언제끝나는가? -> 몬스터나 플레이어 중 하나라도 죽으면 끝남.
-	//->죽은것은? -> HP가 0보다 작을때 -> 만약 HP가 0보다 작다면 죽음.
-	while (!(cPlayer.Dead() || cMonster.Dead()))
+	while (eStage != E_STAGE::EXIT)
 	{
-		if (cPlayer.Dead() == false)
-			cPlayer.Attack(cMonster);
-		cMonster.Show();
-		if (cMonster.Dead() == false)
-			cMonster.Attack(cPlayer);
-		else
+		switch (eStage)
 		{
-			cPlayer.StillItem(cMonster);
-			if (cPlayer.LvUp())
-				cout << "랩업!" << endl;
+		case E_STAGE::CRATE:
+		{
+			string name;
+			cout << "케릭터 이름을 입력하세요!:";
+			cin >> name;
+			cPlayer.Set(name, 100, 100, 20, 10, 10, 0);
 		}
-
-		cPlayer.Show();
+		break;
+		case E_STAGE::TOWN:
+		{
+			cout << "마을 입니다." << endl;
+		}
+		break;
+		case E_STAGE::FILED:
+		{
+			int nSelect;
+			cout << "어디로 가시겠습니까?";
+			for (int i = 0; i < E_MONSTER::MON_MAX; i++)
+				cout << i << ":" << strMonsterName[i] << ",";
+			cin >> nSelect;
+			switch (nSelect)
+			{
+			case E_MONSTER::SILME:
+				cMonster.Set("Slime", 100, 100, 20, 10, 10, 100);
+				break;
+			case E_MONSTER::SKELETON:
+				cMonster.Set("Skeleton", 200, 200, 30, 10, 10, 100);
+				break;
+			case E_MONSTER::BOSS:
+				cMonster.Set("Boss", 300, 100, 50, 10, 10, 100);
+				break;
+			}
+		}
+		break;
+		case E_STAGE::BATTLE:
+		{
+			if (cPlayer.Dead() == false)
+				cPlayer.Attack(cMonster);
+			else
+			{
+				eStage = GAME_OVER;
+			}
+			cMonster.Show();
+			if (cMonster.Dead() == false)
+				cMonster.Attack(cPlayer);
+			else
+			{
+				cPlayer.StillItem(cMonster);
+				if (cPlayer.LvUp())
+					cout << "랩업!" << endl;
+				eStage = TOWN;
+			}
+		}
+		break;
+		case E_STAGE::GAME_OVER:
+			printf("GAME\OVER");
+			break;
+		case E_STAGE::THE_END:
+			printf("THE EMD");
+			break;
+		default:
+			break;
+		}
+		cout << "어디로 가시겠습니까?" << endl;
+		for (int i = 0; i < E_STAGE::MAX; i++)
+			cout << i << ":" << strStageName[i] << ",";
+		cin >> eStage;
 	}
 }
