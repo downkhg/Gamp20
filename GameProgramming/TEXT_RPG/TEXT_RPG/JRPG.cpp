@@ -84,8 +84,9 @@ public:
 	enum E_ITEM_LIST { WOOD_SOWRD, BONE_SOWRD, WOOD_ARMOR, BONE_AMROR, WOOD_RING, BONE_RING, HP_POTION, MP_POTION, STONE, BOOM };
 	ItemManager()
 	{
-		
+
 	}
+
 
 	void Init()
 	{
@@ -159,10 +160,9 @@ public:
 		else
 			cout << " Save Failed!" << endl;
 	}
-
-	Item GetItem(int idx)
+	Item* GetItem(int idx)
 	{
-		return m_listItems[idx];
+		return &m_listItems[idx];
 	}
 };
 
@@ -171,20 +171,22 @@ class Player {
 	Status m_sStatus;
 	int m_nLv;
 	int m_nExp;
+	int m_nGold;
 
-	vector<Item> m_listIventory;
-	vector<Item> m_listEqument;
+	vector<Item*> m_listIventory;
+	vector<Item*> m_listEqument;
 public:
 	Player()
 	{
 		m_listEqument.resize(3);
+		m_nGold = 9999999;
 	}
 
-	void SetIventory(Item item)
+	void SetIventory(Item* item)
 	{
 		m_listIventory.push_back(item);
 	}
-	Item GetIventoryIdx(int idx)
+	Item* GetIventoryIdx(int idx)
 	{
 		return m_listIventory[idx];
 	}
@@ -195,14 +197,14 @@ public:
 
 	bool UseItem(int idx)
 	{
-		Item cItem = GetIventoryIdx(idx);
+		Item* pItem = GetIventoryIdx(idx);
 
-		if (cItem.eItemKind == Item::E_ITEM_KIND::THROW)
+		if (pItem->eItemKind == Item::E_ITEM_KIND::THROW)
 			return false;
 
-		int nIdx = cItem.eItemKind;
-		m_listEqument[nIdx] = cItem;
-		m_sStatus = m_sStatus + cItem.sFuction;
+		int nIdx = pItem->eItemKind;
+		m_listEqument[nIdx] = pItem;
+		m_sStatus = m_sStatus + pItem->sFuction;
 		DeleteIventory(idx);
 
 		return true;
@@ -210,9 +212,9 @@ public:
 
 	void ReleaseEqument(int idx)
 	{
-		Item cItem = m_listEqument[idx];
-		m_sStatus = m_sStatus - cItem.sFuction;
-		SetIventory(cItem);
+		Item* pItem = m_listEqument[idx];
+		m_sStatus = m_sStatus - pItem->sFuction;
+		SetIventory(pItem);
 	}
 
 	void Set(string strName, int _hp, int _mp, int _str, int _int, int _def, int _exp)
@@ -241,6 +243,25 @@ public:
 		this->m_nExp = taget.m_nExp;
 	}
 
+	bool Buy(Player& target, int idx)
+	{
+		Item* item = target.GetIventoryIdx(idx);
+		if (item->nGold <= m_nGold)
+		{
+			SetIventory(item);
+			m_nGold -= item->nGold;
+			return true;
+		}
+		return false;
+	}
+
+	void Sell(int idx)
+	{
+		Item* item = GetIventoryIdx(idx);
+		DeleteIventory(idx);
+		m_nGold += item->nGold;
+	}
+
 	bool LvUp()
 	{
 		//만약 경험치가 100 이상되면, 레벨+1, 모든 능력치 10증가, 경험치 초기화.
@@ -263,21 +284,24 @@ public:
 
 	void Show()
 	{
-		cout << "######### " << m_strName << "######### " << endl;
+		cout << "######### " << m_strName << " #########" << endl;
 		m_sStatus.Show();
 		cout << "######### Equment #########" << endl;
 		for (int i = 0; i < m_listEqument.size(); i++)
-			cout << i << ":" << m_listEqument[i].strName << endl;
-		cout << "######### Inventory ######### " << endl;
+			if (m_listEqument[i])
+				cout << i << ":" << m_listEqument[i]->strName << endl;
+			else
+				cout << i << ": null" << endl;
+		cout << "######### Inventory: " << m_nGold << " ######### " << endl;
 		for (int i = 0; i < m_listIventory.size(); i++)
-			cout << i << ":" << m_listIventory[i].strName << endl;
+			cout << i << ":" << m_listIventory[i]->strName << endl;
 	}
 };
 //상점을 플레이를 이용하여 만들어보기. //사기,팔기
 void main()
 {
-	enum E_STAGE { EXIT = -1, CRATE, IVNETORY, TOWN, FILED, BATTLE, GAME_OVER, THE_END, MAX };
-	const char* strStageName[] = { "CRATE", "INVENTORY","TOWN", "FILED", "BATTLE", "GAME_OVER", "THE_END" };
+	enum E_STAGE { EXIT = -1, CRATE, IVNETORY, SHOP, TOWN, FILED, BATTLE, GAME_OVER, THE_END, MAX };
+	const char* strStageName[] = { "CRATE", "INVENTORY","SHOP","TOWN", "FILED", "BATTLE", "GAME_OVER", "THE_END" };
 
 	enum E_MONSTER { SILME, SKELETON, BOSS, MON_MAX };
 	const char* strMonsterName[] = { "SILME", "SKELETON", "BOSS" };
@@ -287,14 +311,26 @@ void main()
 	ItemManager cItemManager;
 	Player cPlayer;
 	Player cMonster;
+	Player cShop;
 
 	//cItemManager.Init();
 	//cItemManager.SaveFile();
 	cItemManager.LoadFile();
 
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_SOWRD));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_ARMOR));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_RING));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_SOWRD));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_AMROR));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BONE_RING));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::HP_POTION));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::MP_POTION));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::STONE));
+	cShop.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::BOOM));
+
 	cMonster.Set("Slime", 100, 100, 20, 10, 10, 100);
 	cMonster.SetIventory(cItemManager.GetItem(ItemManager::E_ITEM_LIST::WOOD_SOWRD));
-	//cMonster.SetIventory(Item(Item::E_ITEM_KIND::WEAPON, "목검", "데미지 증가", Status(0, 0, 10), 100));
+	//cMonster.SetIventory(Item(Item::E_ITEM_KIND::WEAPON, "목검", "데미지 증가", 0, 0, 10), 100));
 
 	while (eStage != E_STAGE::EXIT)
 	{
@@ -330,6 +366,44 @@ void main()
 			}
 			else
 				eStage = E_STAGE::TOWN;
+		}
+		break;
+		case E_STAGE::SHOP:
+		{
+			cShop.Show();
+			int nInput;
+			cout << "상점입니다. 무엇을 하시겠습니까? 1: 구매, 2: 팔기, etc:마을";
+			cin >> nInput;
+			switch (nInput)
+			{
+			case 1:
+			{
+				cout << "구매할 아이템을 목록에서 선택하세요! -1:마을";
+				cin >> nInput;
+				if (nInput != -1)
+					cPlayer.Buy(cShop, nInput);
+				else
+					eStage = E_STAGE::TOWN;
+			}
+			break;
+			case 2:
+			{
+				cPlayer.Show();
+				cout << "판매할 아이템을 목록에서 선택하세요! -1:마을";
+				cin >> nInput;
+				if (nInput != -1)
+					cPlayer.Sell(nInput);
+				else
+					eStage = E_STAGE::TOWN;
+			}
+			break;
+			default:
+			{
+				eStage = E_STAGE::TOWN;
+			}
+			break;
+			}
+
 		}
 		break;
 		case E_STAGE::TOWN:
@@ -393,5 +467,24 @@ void main()
 			break;
 		}
 
+	}
+
+	//전투는 언제끝나는가? -> 몬스터나 플레이어 중 하나라도 죽으면 끝남.
+	//->죽은것은? -> HP가 0보다 작을때 -> 만약 HP가 0보다 작다면 죽음.
+	while (!(cPlayer.Dead() || cMonster.Dead()))
+	{
+		if (cPlayer.Dead() == false)
+			cPlayer.Attack(cMonster);
+		cMonster.Show();
+		if (cMonster.Dead() == false)
+			cMonster.Attack(cPlayer);
+		else
+		{
+			cPlayer.StillItem(cMonster);
+			if (cPlayer.LvUp())
+				cout << "랩업!" << endl;
+		}
+
+		cPlayer.Show();
 	}
 }
