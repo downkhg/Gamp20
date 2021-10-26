@@ -3,6 +3,13 @@
 #include <vector>
 using namespace std;
 
+class Effect;
+class Player;
+class Skill;
+class Item;
+class ItemManager;
+class GameManager;
+
 struct Status {
 	int nHP;
 	int nMP;
@@ -55,6 +62,83 @@ struct Status {
 		cout << "DEF:" << nDef << endl;
 	}
 };
+
+class Effect
+{
+public:
+	virtual void Use(Player& caster, Player& Target) = 0;
+};
+
+class Hill : public Effect
+{
+public:
+	void Use(Player& caster, Player& target);
+};
+
+class Slash : public Effect
+{
+public:
+	void Use(Player& caster, Player& target);
+};
+
+class EffectManager
+{
+	vector<Effect*> listEffect;
+public:
+	void Init()
+	{
+		listEffect.resize(2);
+		listEffect[0] = new Hill();
+		listEffect[1] = new Slash();
+	}
+	Effect* GetEffect(int idx)
+	{
+		return listEffect[idx];
+	}
+};
+
+class Skill
+{
+protected:
+	vector<Effect*> listEffect;
+public:
+	void AddEffect(Effect* effect)
+	{
+		listEffect.push_back(effect);
+	}
+	virtual void Ative(Player& caster, Player& Target) = 0;
+};
+
+
+class BuildSkill : public Skill
+{
+public:
+	void Ative(Player& caster, Player& Target);
+};
+
+class SkillManager
+{
+	vector<Skill*> listSkill;
+public:
+	void Init(EffectManager* pEffectManager)
+	{
+		listSkill.resize(3);
+		listSkill[0] = new BuildSkill();
+		listSkill[0]->AddEffect(pEffectManager->GetEffect(0));
+		listSkill[1] = new BuildSkill();
+		listSkill[1]->AddEffect(pEffectManager->GetEffect(1));
+		listSkill[2] = new BuildSkill();
+		listSkill[2]->AddEffect(pEffectManager->GetEffect(1));
+		listSkill[2]->AddEffect(pEffectManager->GetEffect(0));
+	}
+	Skill* GetSkill(int idx)
+	{
+		return listSkill[idx];
+	}
+};
+
+
+
 
 class Item {
 public:
@@ -171,12 +255,21 @@ class Player {
 
 	vector<Item*> m_listIventory;
 	vector<Item*> m_listEqument;
+	vector<Skill*> m_listSkills;
 public:
+	Status& GetStatus()
+	{
+		return m_sStatus;
+	}
+
 	Player()
 	{
 		m_listEqument.resize(3);
 	}
-
+	void SetSkill(Skill* skill)
+	{
+		m_listSkills.push_back(skill);
+	}
 	void SetIventory(Item* item)
 	{
 		m_listIventory.push_back(item);
@@ -288,6 +381,24 @@ public:
 	}
 };
 
+void BuildSkill::Ative(Player& caster, Player& target)
+{
+	for (int i = 0; i < listEffect.size(); i++)
+	{
+		listEffect[i]->Use(caster, target);
+	}
+}
+
+void Hill::Use(Player& caster, Player& target)
+{
+	target.GetStatus().nHP += caster.GetStatus().nInt;
+}
+
+void Slash::Use(Player& caster, Player& target)
+{
+	target.GetStatus().nHP += caster.GetStatus().nStr;
+}
+
 class GameManager
 {
 public:
@@ -317,6 +428,11 @@ public:
 		cout << "케릭터 이름을 입력하세요!:";
 		cin >> name;
 		m_cPlayer.Set(name, 100, 100, 20, 10, 10, 0);
+
+		m_cPlayer.SetSkill(m_cSkillManager.GetSkill(1));
+		m_cPlayer.SetSkill(m_cSkillManager.GetSkill(0));
+		m_cPlayer.SetSkill(m_cSkillManager.GetSkill(2));
+
 		m_eStage = E_STAGE::TOWN;
 	}
 	void EventInvetory()
@@ -470,6 +586,9 @@ private:
 	int m_eStage = E_STAGE::CRATE;
 
 	ItemManager m_cItemManager;
+	EffectManager m_cEffectManagaer;
+	SkillManager m_cSkillManager;
+
 	Player m_cPlayer;
 	Player m_cMonster;
 	Player m_cShop;
