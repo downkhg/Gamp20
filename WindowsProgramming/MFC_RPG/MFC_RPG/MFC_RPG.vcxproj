@@ -90,7 +90,7 @@
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -183,14 +183,22 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EffectManager.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="MFC_RPG.h" />
     <ClInclude Include="MFC_RPGDlg.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SkillManager.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="GameManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EffectManager.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="MFC_RPG.cpp" />
     <ClCompile Include="MFC_RPGDlg.cpp" />
     <ClCompile Include="pch.cpp">
@@ -199,11 +207,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SkillManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MFCRPG.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="res\MFCRPG.rc2" />
   </ItemGroup>
   <ItemGroup>

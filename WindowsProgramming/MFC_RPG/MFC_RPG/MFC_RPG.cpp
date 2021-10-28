@@ -7,6 +7,7 @@
 #include "MFC_RPG.h"
 #include "MFC_RPGDlg.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif

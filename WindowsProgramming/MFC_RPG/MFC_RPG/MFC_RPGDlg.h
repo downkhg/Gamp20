@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+class GameManager;
 
 // CMFCRPGDlg 대화 상자
 class CMFCRPGDlg : public CDialogEx
@@ -37,7 +37,10 @@ public:
 	CEdit m_editHP;
 	CStatic m_staticBonus;
 
-	int m_nHP;
+	GameManager* m_pGameManager;
+	Status m_sStatus;
+	//int m_nHP;
 	int m_nBonus = 20;
 	afx_msg void OnDeltaposSpinHp(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnBnClickedOk();
 };

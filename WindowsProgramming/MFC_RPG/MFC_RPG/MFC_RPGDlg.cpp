@@ -7,6 +7,7 @@
 #include "MFC_RPG.h"
 #include "MFC_RPGDlg.h"
 #include "afxdialogex.h"
+#include "GameManager.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -70,6 +71,7 @@ BEGIN_MESSAGE_MAP(CMFCRPGDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_NOTIFY(UDN_DELTAPOS, IDC_SPIN_HP, &CMFCRPGDlg::OnDeltaposSpinHp)
+	ON_BN_CLICKED(IDOK, &CMFCRPGDlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -109,10 +111,13 @@ BOOL CMFCRPGDlg::OnInitDialog()
 	m_comboClass.AddString(_T("궁수"));
 	m_comboClass.AddString(_T("마법사"));
 
-	m_nHP = 10;
+	m_sStatus.nHP = 10;
 	CString strTemp;
-	strTemp.Format(_T("%d"), m_nHP);
+	strTemp.Format(_T("%d"), m_sStatus.nHP);
 	m_editHP.SetWindowTextW(strTemp);
+
+	m_pGameManager = new GameManager();
+	m_pGameManager->Init();
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -175,19 +180,29 @@ void CMFCRPGDlg::OnDeltaposSpinHp(NMHDR* pNMHDR, LRESULT* pResult)
 	CString strTemp;
 	if (pNMUpDown->iDelta < 0)
 	{
-		m_nHP++;
+		m_sStatus.nHP++;
 		m_nBonus--;
 	}
 	else
 	{
-		m_nHP--;
+		m_sStatus.nHP--;
 		m_nBonus++;
 	}
 
-	strTemp.Format(_T("%d"), m_nHP);
+	strTemp.Format(_T("%d"), m_sStatus.nHP++);
 	m_editHP.SetWindowTextW(strTemp);
 	strTemp.Format(_T("BonusPoint: %d"), m_nBonus);
 	m_staticBonus.SetWindowTextW(strTemp);
 
 	*pResult = 0;
+}
+
+
+void CMFCRPGDlg::OnBnClickedOk()
+{
+	CString strTemp;
+	m_editName.GetWindowTextW(strTemp);
+	m_pGameManager->EventCreate(strTemp, m_sStatus);
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	//CDialogEx::OnOK();
 }

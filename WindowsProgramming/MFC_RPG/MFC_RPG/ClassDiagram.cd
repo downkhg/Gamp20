@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Effect" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAQAQAgEAAAEAIBAAAAAAAAEAAAAAAgAgAAACAA=</HashCode>
+      <FileName>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\gdipluseffects.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HillEffect">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EffectManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EffectManager">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAQAAAAAAAAAAACAAAAAAAAACABAAAAA=</HashCode>
+      <FileName>EffectManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Item">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Item::E_ITEM_KIND" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RPG\ItemManager.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAkAAAAAogAAAAAACAAAAA=</HashCode>
+      <FileName>ItemManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemManager">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="ItemManager::E_ITEM_LIST" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RPG\ItemManager.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAEAAAAAAAAAAAAAAACAABAAAAAAABAA=</HashCode>
+      <FileName>ItemManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player">
+    <Position X="3.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>jAJAEEQAAAAARQAAUFIAAAEEAIgEAAAAEAAACQAARIA=</HashCode>
+      <FileName>Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Skill">
+    <Position X="5.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAEACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SkillManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkillManager">
+    <Position X="7" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAEQAAAAAAAAAAAQAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SkillManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Status">
+    <Position X="1.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <NewMemberFileName>RPG\Player.h</NewMemberFileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

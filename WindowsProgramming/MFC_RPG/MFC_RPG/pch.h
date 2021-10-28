@@ -10,4 +10,10 @@
 // 여기에 미리 컴파일하려는 헤더 추가
 #include "framework.h"
 
+#include "EffectManager.h"
+#include "ItemManager.h"
+#include "SkillManager.h"
+#include "Player.h"
+#include <afx.h>
+
 #endif //PCH_H

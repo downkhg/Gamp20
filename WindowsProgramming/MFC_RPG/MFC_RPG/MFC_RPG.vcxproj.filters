@@ -5,13 +5,16 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="RPG">
+      <UniqueIdentifier>{bcff9d8e-6286-488f-9efa-086fdcc6398c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +36,21 @@
     <ClInclude Include="pch.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>RPG</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>RPG</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>RPG</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillManager.h">
+      <Filter>RPG</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>RPG</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MFC_RPG.cpp">
@@ -44,6 +62,21 @@
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>RPG</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>RPG</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>RPG</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillManager.cpp">
+      <Filter>RPG</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>RPG</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MFCRPG.rc">
@@ -52,6 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\MFCRPG.rc2">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="ClassDiagram.cd">
       <Filter>리소스 파일</Filter>
     </None>
   </ItemGroup>
