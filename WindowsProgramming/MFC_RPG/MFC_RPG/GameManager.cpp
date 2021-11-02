@@ -35,7 +35,7 @@ void GameManager::Release()
 
 void GameManager::EventCreate(CString name, Status status)
 {
-	m_cPlayer.Set(name, 100, 100, 20, 10, 10, 0);
+	m_cPlayer.Set(name, status, 0);
 	m_eStage = E_STAGE::TOWN;
 }
 void GameManager::EventInvetory()
