@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\BillBoardEffect.cs" />
+    <Compile Include="Assets\Scripts\Dynamic.cs" />
     <Compile Include="Assets\Scripts\MeshInfo.cs" />
     <Compile Include="Assets\Scripts\TargetRotateAround.cs" />
     <Reference Include="UnityEngine">

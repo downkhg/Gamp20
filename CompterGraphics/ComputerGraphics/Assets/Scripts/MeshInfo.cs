@@ -58,9 +58,9 @@ public class MeshInfo : MonoBehaviour {
             vB = quaternion * vB;
             vC = quaternion * vC;
 
-            vA += pos;
-            vB += pos;
-            vC += pos;
+            //vA += pos;
+            //vB += pos;
+            //vC += pos;
 
             Gizmos.color = Color.red;
             Gizmos.DrawLine(vA, vB);

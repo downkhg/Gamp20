@@ -19,9 +19,13 @@ public class TargetRotateAround : MonoBehaviour
     void Update()
     {
         Vector3 vTargetPos = objTarget.transform.position;
-        Vector3 vPos = this.transform.position;
-        Vector3 vDist = vPos - vTargetPos;
-        float fDist = vDist.magnitude;
+        Vector3 vCamPos = this.transform.position;
+        Vector3 vDist = vCamPos - vTargetPos;
+        //Vector3 vDist = vTargetPos - vCamPos;
+        //(0,0,-10) - (0,0,0) = (0,0,10)
+        //float fDist = vDist.magnitude;
+        Vector3 vDir = vDist.normalized;
+        vDist = vDir * fDist;
 
         Quaternion qRot = Quaternion.Euler(vAsix * fAngle);
 
