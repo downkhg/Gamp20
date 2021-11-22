@@ -5,9 +5,19 @@ using UnityEngine;
 public class Dynamic : MonoBehaviour
 {
     [SerializeField]
-    float Speed;
+    float m_fSpeed;
     [SerializeField]
-    float AngleSpeed;
+    float m_fAngleSpeed;
+
+    public float MoveSpeed
+    {
+        get { return m_fSpeed; }
+    }
+    public float AngleSpeed
+    {
+        get { return m_fAngleSpeed;  }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,13 +44,5 @@ public class Dynamic : MonoBehaviour
         ////transform.Rotate(Vector2.down);
     }
 
-    public void MoveProcess(Vector3 dir)
-    {
-        transform.Translate(dir * Speed * Time.deltaTime);
-    }
-
-    public void RotateProcess(Vector3 axis)
-    {
-        transform.Rotate(axis * AngleSpeed);
-    }
+   
 }

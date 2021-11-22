@@ -14,15 +14,15 @@ public class PlayerController : Controller
     void Update()
     {
         if (Input.GetKey(KeyCode.UpArrow))
-            dynamic.MoveProcess(Vector3.forward);
+            MoveProcess(Vector3.forward, dynamic.MoveSpeed);
 
         if (Input.GetKey(KeyCode.DownArrow))
-            dynamic.MoveProcess(Vector3.back);
+            MoveProcess(Vector3.back, dynamic.MoveSpeed);
 
         if (Input.GetKey(KeyCode.RightArrow))
-            dynamic.MoveProcess(Vector3.up);
+           RotateProcess(Vector3.up, dynamic.AngleSpeed);
 
         if (Input.GetKey(KeyCode.LeftArrow))
-            dynamic.MoveProcess(Vector3.down);
+            RotateProcess(Vector3.down,dynamic.AngleSpeed);
     }
 }
