@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Dynamic : MonoBehaviour
 {
-    public float Speed;
+    [SerializeField]
+    float Speed;
+    [SerializeField]
+    float AngleSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,16 +17,30 @@ public class Dynamic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
-            transform.Translate(Vector3.forward * Time.deltaTime);
-            //transform.position += Vector3.forward * Time.deltaTime;
-        if (Input.GetKey(KeyCode.DownArrow))
-            transform.Translate(Vector3.back * Time.deltaTime);
-        //transform.position += Vector3.back * Time.deltaTime;
+        //if (Input.GetKey(KeyCode.UpArrow))
+        //    MoveProcess(Vector3.forward);
+        ////transform.Translate(Vector3.forward * Time.deltaTime);
+        ////transform.position += Vector3.forward * Time.deltaTime;
+        //if (Input.GetKey(KeyCode.DownArrow))
+        //    MoveProcess(Vector3.back);
+        ////transform.Translate(Vector3.back * Time.deltaTime);
+        ////transform.position += Vector3.back * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.RightArrow))
-            transform.Rotate(Vector2.up);
-        if (Input.GetKey(KeyCode.LeftArrow))
-            transform.Rotate(Vector2.down);
+        //if (Input.GetKey(KeyCode.RightArrow))
+        //    MoveProcess(Vector3.up);
+        //    //transform.Rotate(Vector2.up);
+        //if (Input.GetKey(KeyCode.LeftArrow))
+        //    MoveProcess(Vector3.down);
+        ////transform.Rotate(Vector2.down);
+    }
+
+    public void MoveProcess(Vector3 dir)
+    {
+        transform.Translate(dir * Speed * Time.deltaTime);
+    }
+
+    public void RotateProcess(Vector3 axis)
+    {
+        transform.Rotate(axis * AngleSpeed);
     }
 }

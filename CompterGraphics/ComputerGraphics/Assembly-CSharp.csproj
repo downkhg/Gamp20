@@ -65,8 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\BillBoardEffect.cs" />
+    <Compile Include="Assets\Scripts\Controller.cs" />
     <Compile Include="Assets\Scripts\Dynamic.cs" />
     <Compile Include="Assets\Scripts\MeshInfo.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ReflectBall.cs" />
     <Compile Include="Assets\Scripts\RelfectPlane.cs" />
     <Compile Include="Assets\Scripts\TargetRotateAround.cs" />
