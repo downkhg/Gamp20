@@ -10,10 +10,11 @@ public class AIController : Controller
 
     public void SetAIState(E_AI_STATE state)
     {
+        Debug.Log("SetAIState:"+state);
         switch (state)
         {
             case E_AI_STATE.FIND:
-
+                m_objTarget = null;
                 break;
             case E_AI_STATE.TRACKING:
                 transform.LookAt(m_objTarget.transform.parent);
@@ -22,7 +23,7 @@ public class AIController : Controller
 
                 break;
             case E_AI_STATE.RETURN:
-
+                transform.LookAt(m_objResponPoint.transform);
                 break;
         }
         m_curAIState = state;
@@ -37,16 +38,19 @@ public class AIController : Controller
                     SetAIState(E_AI_STATE.RETURN);
                 break;
             case E_AI_STATE.TRACKING:
-                if(m_objTarget)
+                if (m_objTarget)
                 {
-                    TrackingProcess();
+                    TrackingProcess(m_objTarget.transform.parent.gameObject);
                 }
+                else
+                    SetAIState(E_AI_STATE.RETURN);
                 break;
             case E_AI_STATE.ATTACK:
 
                 break;
             case E_AI_STATE.RETURN:
-
+                if (TrackingProcess(m_objResponPoint) == false)
+                    SetAIState(E_AI_STATE.FIND);
                 break;
         }
     }
@@ -56,6 +60,8 @@ public class AIController : Controller
 
     [SerializeField]
     GameObject m_objTarget;
+    [SerializeField]
+    GameObject m_objResponPoint;
 
     public bool ArcColCheak(GameObject target, float angle, Vector3 forword)
     {
@@ -81,17 +87,25 @@ public class AIController : Controller
         return false;
     }
 
-    public bool RayCastWall()
+    public bool RayCastWall(GameObject target)
     {
+        Vector3 vTargetPos = target.transform.position;
+        Vector3 vPos = this.transform.position;
+        Vector3 vTargetToDist = vTargetPos - vPos;
+
         RaycastHit raycastHit;
+       
         //int nLayer = 1 << LayerMask.NameToLayer("Wall");
-        if (Physics.Raycast(transform.position, transform.forward, out raycastHit))
+        if (Physics.Raycast(transform.position, vTargetToDist.normalized, out raycastHit, m_fSite))
         {
             if (raycastHit.transform.tag == "Wall")
             {
+                Debug.DrawLine(vPos, vTargetPos, Color.red);
                 Debug.Log("RaycastHit:" + raycastHit.collider.gameObject.name);
                 return true;
             }
+            else
+                Debug.DrawLine(vPos, vTargetPos, Color.green);
         }
 
         return false;
@@ -99,17 +113,18 @@ public class AIController : Controller
 
     public bool FindTargetProcess()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, m_fSite);
+        int nLayer = 1 << LayerMask.NameToLayer("Player");
+        Collider[] colliders = Physics.OverlapSphere(transform.position, m_fSite, nLayer);
 
         if (colliders.Length > 0)
         {
             foreach (Collider collider in colliders)
             {
-                if (collider.tag == "Player" && collider.transform.parent != null)
+                if (collider.transform.parent != null)
                 {
                     if (ArcColCheak(collider.transform.parent.gameObject, 120, transform.forward))
                     {
-                        if (RayCastWall() == false)
+                        if (RayCastWall(collider.transform.parent.gameObject) == false)
                         {
                             m_objTarget = collider.gameObject.transform.gameObject;
                             return true;
@@ -118,14 +133,20 @@ public class AIController : Controller
                 }
             }
         }
+
         m_objTarget = null;
         return false;
     }
 
-    public void TrackingProcess()
+    public bool TrackingProcess(GameObject objTarget)
     {
-        if (Vector3.Distance(transform.position, m_objTarget.transform.parent.transform.position) > Time.deltaTime)
+        if (Vector3.Distance(transform.position, objTarget.transform.position) > Time.deltaTime)
+        {
             MoveProcess(Vector3.forward, dynamic.MoveSpeed);
+            return true;
+        }
+        else
+            return false;
         //else
         //    SetAIState(E_AI_STATE.ATTACK);
     }
