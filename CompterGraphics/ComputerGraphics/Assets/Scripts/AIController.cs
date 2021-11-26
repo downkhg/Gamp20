@@ -63,23 +63,23 @@ public class AIController : Controller
     [SerializeField]
     GameObject m_objResponPoint;
 
-    public bool ArcColCheak(GameObject target, float angle, Vector3 forword)
+    public bool ArcColCheak(GameObject target, float angle, Vector3 forward)
     {
         Vector3 vTargetPos = target.transform.position;
         Vector3 vPos = this.transform.position;
 
         Vector3 vTargetToDir = vTargetPos - vPos;
-        float fAngle = Vector3.Angle(forword, vTargetToDir);
+        float fAngle = Vector3.Angle(forward, vTargetToDir);
 
         float fHalfAngle = angle * 0.5f;
      
         Quaternion qRotRight = Quaternion.Euler(Vector3.up * fHalfAngle);
-        Vector3 vEndPosRight = qRotRight * forword * m_fSite;
+        Vector3 vEndPosRight = qRotRight * forward * m_fSite;
         Debug.DrawLine(vPos, vPos + vEndPosRight, Color.red);
         Quaternion qRotLeft = Quaternion.Euler(Vector3.down * fHalfAngle);
-        Vector3 vEndPosLeft = qRotLeft * forword * m_fSite;
+        Vector3 vEndPosLeft = qRotLeft * forward * m_fSite;
         Debug.DrawLine(vPos, vPos + vEndPosLeft, Color.red);
-        Debug.DrawLine(vPos, vPos + forword*m_fSite, Color.blue);
+        Debug.DrawLine(vPos, vPos + forward*m_fSite, Color.blue);
 
         if (fAngle < fHalfAngle)
             return true;
