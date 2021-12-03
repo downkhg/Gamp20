@@ -8,8 +8,18 @@ public class AIController : Controller
     [SerializeField]
     E_AI_STATE m_curAIState;
 
+    IEnumerator ProcessAttack()
+    {
+        do
+        {
+            yield return new WaitForSeconds(m_fShotCoolTime);
+            m_cPlayer.Shot();
+        } while (m_curAIState == E_AI_STATE.ATTACK);
+    }
+
     public void SetAIState(E_AI_STATE state)
     {
+        if (m_curAIState == state) return;
         Debug.Log("SetAIState:"+state);
         switch (state)
         {
@@ -17,10 +27,11 @@ public class AIController : Controller
                 m_objTarget = null;
                 break;
             case E_AI_STATE.TRACKING:
-                transform.LookAt(m_objTarget.transform.parent);
+                if(m_objTarget)
+                    transform.LookAt(m_objTarget.transform.parent);
                 break;
             case E_AI_STATE.ATTACK:
-
+                StartCoroutine(ProcessAttack());
                 break;
             case E_AI_STATE.RETURN:
                 transform.LookAt(m_objResponPoint.transform);
@@ -40,13 +51,18 @@ public class AIController : Controller
             case E_AI_STATE.TRACKING:
                 if (m_objTarget)
                 {
-                    TrackingProcess(m_objTarget.transform.parent.gameObject);
+                    if (!TrackingProcess(m_objTarget.transform.parent.gameObject))
+                        SetAIState(E_AI_STATE.ATTACK);
                 }
                 else
                     SetAIState(E_AI_STATE.RETURN);
                 break;
             case E_AI_STATE.ATTACK:
-
+                if (m_objTarget == null)
+                {
+                    SetAIState(E_AI_STATE.RETURN);
+                }
+               
                 break;
             case E_AI_STATE.RETURN:
                 if (TrackingProcess(m_objResponPoint) == false)
@@ -57,6 +73,11 @@ public class AIController : Controller
 
     [SerializeField]
     float m_fSite;
+
+    [SerializeField]
+    float m_fShotDist = 3;
+    [SerializeField]
+    float m_fShotCoolTime = 0.5f;
 
     [SerializeField]
     GameObject m_objTarget;
@@ -140,13 +161,21 @@ public class AIController : Controller
 
     public bool TrackingProcess(GameObject objTarget)
     {
-        if (Vector3.Distance(transform.position, objTarget.transform.position) > Time.deltaTime)
+        Vector3 vPos = transform.position;
+        Vector3 vTargetPos = objTarget.transform.position;
+
+        float fDist = (vTargetPos - vPos).magnitude;
+
+        if (fDist > m_fShotDist)
         {
-            MoveProcess(Vector3.forward, dynamic.MoveSpeed);
-            return true;
+            if (Vector3.Distance(transform.position, objTarget.transform.position) > Time.deltaTime)
+            {
+                MoveProcess(Vector3.forward, m_cPlayer.MoveSpeed);
+                return true;
+            }      
         }
-        else
-            return false;
+
+        return false;
         //else
         //    SetAIState(E_AI_STATE.ATTACK);
     }
@@ -165,12 +194,23 @@ public class AIController : Controller
 
     private void FixedUpdate()
     {
+
         if (FindTargetProcess())
-            SetAIState(E_AI_STATE.TRACKING);
+        {
+            if (m_curAIState != E_AI_STATE.ATTACK)
+            {
+                SetAIState(E_AI_STATE.TRACKING);
+            }
+            else
+                transform.LookAt(m_objTarget.transform);
+        }
+     
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, m_fSite);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, m_fShotDist);
     }
 }

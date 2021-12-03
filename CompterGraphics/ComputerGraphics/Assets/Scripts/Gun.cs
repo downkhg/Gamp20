@@ -17,19 +17,4 @@ public class Gun : MonoBehaviour
         Rigidbody rigidbody = objBullet.GetComponent<Rigidbody>();
         rigidbody.AddForce(transform.forward * m_fShotPower);
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Shot();
-        }
-    }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     [SerializeField]
-    protected Dynamic dynamic;
+    protected Player m_cPlayer;
 
     public void MoveProcess(Vector3 dir, float speed)
     {
