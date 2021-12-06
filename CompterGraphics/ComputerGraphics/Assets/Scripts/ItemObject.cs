@@ -13,14 +13,13 @@ public class ItemObject : MonoBehaviour
     }
     public void SetItem(Item item)
     {
-
+        m_cItem = item;
     }
-
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_cItem = GameManager.GetInstance().ItemManager.GetItem(0);
     }
 
     // Update is called once per frame

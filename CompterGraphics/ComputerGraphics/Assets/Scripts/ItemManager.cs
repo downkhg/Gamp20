@@ -72,16 +72,17 @@ public class ItemManager : MonoBehaviour
 	[SerializeField]
     List<Item> m_listItem = new List<Item>((int)E_ITEM.MAX);
 
-    // Start is called before the first frame update
-    void Start()
+	public Item GetItem(int idx)
     {
+		return	m_listItem[idx];
+    }
+
+    // Start is called before the first frame update
+    public void InitItems()
+    {
+		Debug.Log("ItemManager::Init() 1");
 		m_listItem.Add(new Item("HP_Potion", new Status(100)));
 		m_listItem.Add(new Item("MP_Potion", new Status(0,100)));
+		Debug.Log("ItemManager::Awalk() 2");
 	}
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
