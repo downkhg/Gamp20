@@ -7,6 +7,11 @@ public class Controller : MonoBehaviour
     [SerializeField]
     protected Player m_cPlayer;
 
+    public Player GetPlayer()
+    {
+        return m_cPlayer;
+    }
+
     public void MoveProcess(Vector3 dir, float speed)
     {
         transform.Translate(dir * speed * Time.deltaTime);

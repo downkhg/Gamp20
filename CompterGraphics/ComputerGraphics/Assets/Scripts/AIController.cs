@@ -20,7 +20,7 @@ public class AIController : Controller
     public void SetAIState(E_AI_STATE state)
     {
         if (m_curAIState == state) return;
-        Debug.Log("SetAIState:"+state);
+        //Debug.Log("SetAIState:"+state);
         switch (state)
         {
             case E_AI_STATE.FIND:

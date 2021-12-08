@@ -58,6 +58,7 @@ public class Item
 	[SerializeField]
 	Status m_sStatus;
 	public Status ItemStatus { set { m_sStatus = value; } get { return m_sStatus; } }
+	public string Name { get { return m_strName; }  }
 
 	public Item (string name, Status status)
     {
