@@ -84,6 +84,13 @@ public class AIController : Controller
     [SerializeField]
     GameObject m_objResponPoint;
 
+    public GameObject GetTarget()
+    {
+        return m_objTarget;
+    }
+
+    public float ShotDist { get { return m_fShotDist; }  }
+
     public bool ArcColCheak(GameObject target, float angle, Vector3 forward)
     {
         Vector3 vTargetPos = target.transform.position;

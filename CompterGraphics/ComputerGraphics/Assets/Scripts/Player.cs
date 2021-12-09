@@ -34,7 +34,9 @@ public class Player : MonoBehaviour
 
     public void Shot()
     {
-        m_cGun.Shot();
+        AIController cAIController = transform.parent.GetComponent<AIController>();
+        m_cGun.SetShotDist(cAIController.ShotDist);
+        m_cGun.Shot(cAIController.GetTarget());
     }
 
     private void Awake()

@@ -48,7 +48,8 @@ MonoBehaviour:
   m_prefabBullet: {fileID: 4123731363305601604, guid: 6795fee7c32b81542a7268786f4fc9c9,
     type: 3}
   m_transMozzle: {fileID: 6693293905597580991}
-  m_fShotPower: 300
+  m_fShotSpeed: 1
+  m_fDestroyTime: 0
 --- !u!1 &6693293905484202862
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,12 +9,20 @@ public class Gun : MonoBehaviour
     [SerializeField]
     Transform m_transMozzle;
     [SerializeField]
-    float m_fShotPower;
+    float m_fShotSpeed = 1;
+    [SerializeField]
+    float m_fDestroyTime;
 
-    public void Shot()
+    public void SetShotDist(float fDist)
+    {
+        m_fDestroyTime = fDist / m_fShotSpeed;
+    }
+
+    public void Shot(GameObject target)
     {
         GameObject objBullet = Instantiate(m_prefabBullet, m_transMozzle.position, Quaternion.identity);
-        Rigidbody rigidbody = objBullet.GetComponent<Rigidbody>();
-        rigidbody.AddForce(transform.forward * m_fShotPower);
+        objBullet.transform.LookAt(target.transform);
+        Bullet bullet = objBullet.GetComponent<Bullet>();
+        bullet.Initialize(m_fShotSpeed, m_fDestroyTime);
     }
 }
