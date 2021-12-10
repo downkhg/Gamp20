@@ -6,6 +6,27 @@ public class ItemObject : MonoBehaviour
 {
     [SerializeField]
     Item m_cItem;
+    Rigidbody m_cRigidbody;
+
+    private void Awake()
+    {
+        m_cRigidbody = GetComponent<Rigidbody>();
+    }
+
+
+    private void OnEnable()
+    {
+        Debug.Log(gameObject.name+".OnEnable:" + m_cItem.Name);
+        m_cRigidbody.velocity = Vector3.zero;
+        m_cRigidbody.isKinematic = false;
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log(gameObject.name + ".OnDisable:" + m_cItem.Name);
+        m_cRigidbody.velocity = Vector3.zero;
+        m_cRigidbody.isKinematic = true;
+    }
 
     public void SetItem(ItemManager.E_ITEM item)
     {
@@ -13,6 +34,7 @@ public class ItemObject : MonoBehaviour
     }
     public void SetItem(Item item)
     {
+        //gameObject.SetActive(true);
         m_cItem = item;
     }
 
@@ -25,8 +47,11 @@ public class ItemObject : MonoBehaviour
     {
         Debug.Log("GetItem:" + m_cItem.Name);
         itemIventory.SetItem(m_cItem);
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
+       
     }
+
+   
 
     //void Update() //굳이 사용하지않는 콜백함수는 호출하지않는 것이 좋다.
     //{

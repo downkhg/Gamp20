@@ -7,13 +7,13 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     float m_fSpeed = 1;
     [SerializeField]
-    bool m_bStop = false;
+    bool m_bMove = false;
 
     IEnumerator ProcessTimmer(float fTime)
     {
-        m_bStop = false;
+        m_bMove = true;
         yield return new WaitForSeconds(fTime);
-        m_bStop = true;
+        m_bMove = false;
         Destroy(this.gameObject);
     }
 
@@ -27,9 +27,9 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!m_bStop)
+        if (m_bMove)
         {
-            transform.position += Vector3.forward * m_fSpeed * Time.deltaTime;
+            transform.Translate(Vector3.forward * m_fSpeed * Time.deltaTime);
         }
     }
 }
