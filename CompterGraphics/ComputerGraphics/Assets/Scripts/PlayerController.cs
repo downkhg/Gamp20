@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class PlayerController : Controller
 {
+    [SerializeField]
+    Transform m_transGrab;
+
+    public Transform GrabPoint
+    {
+        get { return m_transGrab; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

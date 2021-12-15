@@ -8,7 +8,13 @@ public class GameManager : MonoBehaviour
     List<ItemObject> m_listItemObject;
     [SerializeField]
     ItemManager m_cItemManager;
+    [SerializeField]
+    List<PlayerController> m_listPlayerControllers;
+    [SerializeField]
+    int m_nPlayerIdx = 0;
 
+    public int PlayerIdx { get { return m_nPlayerIdx; } set { m_nPlayerIdx = value; } }
+        
     public List<ItemObject> ItemObjects
     {
         get { return m_listItemObject; }
@@ -16,6 +22,14 @@ public class GameManager : MonoBehaviour
     public ItemManager ItemManager
     {
         get { return m_cItemManager; }
+    }
+    public List<PlayerController> PlayerControllList
+    {
+        get { return m_listPlayerControllers; }
+    }
+    public PlayerController GetPlayeControllers(int idx)
+    {
+        return m_listPlayerControllers[idx];
     }
     //싱글톤기법: 객체는 원래 1개만 생성되로록 규칙이 정해져있어야하지만,
     //인스펙터사용등 편리함을 이유로 유니티에서 느슨한 규칙을 적용한것임.
@@ -50,6 +64,15 @@ public class GameManager : MonoBehaviour
                 //Debug.DrawRay(ray.origin, ray.direction, Color.green);
                 Debug.DrawLine(ray.origin, ray.origin + ray.direction * fRayDist, Color.green);
                 Debug.Log("Ray Ficking:" + collider.gameObject.name);
+                PlayerController playerController = GetPlayeControllers(PlayerIdx);
+
+                Transform transPickup = collider.transform;
+
+                if(playerController.GrabPoint)
+                {
+                    transPickup.SetParent(playerController.GrabPoint);
+                    transPickup.localPosition = Vector3.zero;
+                }
             }
             else
                 Debug.DrawLine(ray.origin, ray.origin + ray.direction * fRayDist, Color.red);
