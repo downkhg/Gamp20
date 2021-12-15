@@ -26,6 +26,36 @@ public class GameManager : MonoBehaviour
         return m_cInstance;
     }
 
+    private void Awake()
+    {
+        m_cInstance = this;
+    }
+
+    [SerializeField]
+    Camera m_cCarmera;
+
+    void UpdateInputProcess()
+    {
+
+        Ray ray = m_cCarmera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit raycastHit = new RaycastHit();
+        float fRayDist = 100;
+        int nLayer = 1 << LayerMask.NameToLayer("Object");
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (Physics.Raycast(ray.origin, ray.direction, out raycastHit, fRayDist, nLayer, QueryTriggerInteraction.Collide))
+            {
+                Collider collider = raycastHit.collider;
+                //Debug.DrawRay(ray.origin, ray.direction, Color.green);
+                Debug.DrawLine(ray.origin, ray.origin + ray.direction * fRayDist, Color.green);
+                Debug.Log("Ray Ficking:" + collider.gameObject.name);
+            }
+            else
+                Debug.DrawLine(ray.origin, ray.origin + ray.direction * fRayDist, Color.red);
+        }
+    }
+
     public enum E_GUI_STATE { NONE = -1, TITLE, GAMEOVER, THEEND, PLAY }
 
     [SerializeField]
@@ -81,11 +111,7 @@ public class GameManager : MonoBehaviour
         SetState((E_GUI_STATE)idx);
     }
 
-    private void Awake()
-    {
-        m_cInstance = this;
-    }
-
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -101,5 +127,10 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         UpdateState();
+    }
+
+    private void FixedUpdate()
+    {
+        UpdateInputProcess();
     }
 }

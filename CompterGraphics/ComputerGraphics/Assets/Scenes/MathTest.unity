@@ -1994,7 +1994,7 @@ GameObject:
   - component: {fileID: 1394540031}
   - component: {fileID: 1394540035}
   - component: {fileID: 1394540036}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2195,7 +2195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1613806203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2697,6 +2697,7 @@ MonoBehaviour:
   m_listItemObject:
   - {fileID: 1394540035}
   m_cItemManager: {fileID: 1989759062}
+  m_cCarmera: {fileID: 1354069928}
   m_listGUIScenes:
   - {fileID: 10255635}
   - {fileID: 2068708959}
