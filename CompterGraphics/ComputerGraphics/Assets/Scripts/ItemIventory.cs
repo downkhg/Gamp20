@@ -7,6 +7,11 @@ public class ItemIventory : MonoBehaviour
     [SerializeField]
     List<Item> m_listItem = null;
 
+    public List<Item> GetlistItem()
+    {
+        return m_listItem;
+    }
+
     public Item GetItem(int idx)
     {
         return m_listItem[idx];
@@ -15,6 +20,19 @@ public class ItemIventory : MonoBehaviour
     public void SetItem(Item item)
     {
         m_listItem.Add(item);
+    }
+
+    public void TestIventory(int count)
+    {
+        ItemManager itemManager = GameManager.GetInstance().ItemManager;
+
+        for(int c = 0;  c < count; c++)
+        {
+            for (int i = 0; i < m_listItem.Count; i++)
+            {
+                SetItem(itemManager.GetItem(i));
+            }
+        }
     }
 
     public void Initialize(int size)

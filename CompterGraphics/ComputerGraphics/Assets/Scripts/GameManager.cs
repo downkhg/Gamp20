@@ -79,12 +79,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    bool m_bPopup;
+
     public enum E_GUI_STATE { NONE = -1, TITLE, GAMEOVER, THEEND, PLAY }
 
     [SerializeField]
     List<GameObject> m_listGUIScenes;
     [SerializeField]
     E_GUI_STATE m_eGurGUIState;
+
+    
 
     void ShowGUIScenes(int idx)
     {
@@ -102,12 +107,16 @@ public class GameManager : MonoBehaviour
         switch(state)
         {
             case E_GUI_STATE.TITLE:
+                Time.timeScale = 0;
                 break;
             case E_GUI_STATE.GAMEOVER:
+                Time.timeScale = 0;
                 break;
             case E_GUI_STATE.THEEND:
+                Time.timeScale = 0;
                 break;
             case E_GUI_STATE.PLAY:
+                Time.timeScale = 1;
                 break;
         }
         ShowGUIScenes((int)state);
@@ -119,12 +128,16 @@ public class GameManager : MonoBehaviour
         switch (m_eGurGUIState)
         {
             case E_GUI_STATE.TITLE:
+                
                 break;
             case E_GUI_STATE.GAMEOVER:
+
                 break;
             case E_GUI_STATE.THEEND:
+
                 break;
             case E_GUI_STATE.PLAY:
+
                 break;
         }
     }
@@ -132,6 +145,14 @@ public class GameManager : MonoBehaviour
     public void EventGUIState(int idx)
     {
         SetState((E_GUI_STATE)idx);
+    }
+
+    public void EventShowMeTheItems()
+    {
+        Controller controller = GetPlayeControllers(m_nPlayerIdx);
+        Player player = controller.GetPlayer();
+        ItemIventory itemIventory = player.GetComponent<ItemIventory>();
+        itemIventory.TestIventory(10);
     }
 
   
@@ -144,6 +165,7 @@ public class GameManager : MonoBehaviour
         {
             m_listItemObject[i].SetItem(m_cItemManager.GetItem(0));
         }
+        SetState(m_eGurGUIState);
         Debug.Log("GameManager::Start() 1");
     }
 

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Item">
+    <Position X="1.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAgAAAAQAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Assets\Scripts\ItemManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemManager">
+    <Position X="3.25" Y="1.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="ItemManager.E_ITEM" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\ItemManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAABAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ItemManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemObject">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgBEAAAAAAAAAAFAAAAAAIQAAAAAAACEA=</HashCode>
+      <FileName>Assets\Scripts\ItemObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemIventory">
+    <Position X="7.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAABUAAAAAAAAAAAAABBAAAAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ItemIventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Status">
+    <Position X="3.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAgAwAEAACAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Assets\Scripts\ItemManager.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

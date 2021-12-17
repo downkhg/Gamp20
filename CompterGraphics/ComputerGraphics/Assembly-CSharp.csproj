@@ -68,6 +68,8 @@
     <Compile Include="Assets\Scripts\BillBoardEffect.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\Controller.cs" />
+    <Compile Include="Assets\Scripts\GUI\GUIItemButton.cs" />
+    <Compile Include="Assets\Scripts\GUI\GUIItemInventory.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Gun.cs" />
     <Compile Include="Assets\Scripts\ItemIventory.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Assets\Scripts\RelfectPlane.cs" />
     <Compile Include="Assets\Scripts\Responner.cs" />
     <Compile Include="Assets\Scripts\TargetRotateAround.cs" />
+    <None Include="Assets\Scripts\ItemDiagram.cd" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.0f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
