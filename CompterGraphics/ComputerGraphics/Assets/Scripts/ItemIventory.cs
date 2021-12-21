@@ -28,7 +28,7 @@ public class ItemIventory : MonoBehaviour
 
         for(int c = 0;  c < count; c++)
         {
-            for (int i = 0; i < m_listItem.Count; i++)
+            for (int i = 0; i < itemManager.ListItems.Count; i++)
             {
                 SetItem(itemManager.GetItem(i));
             }

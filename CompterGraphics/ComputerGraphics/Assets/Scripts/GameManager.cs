@@ -81,6 +81,26 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     bool m_bPopup;
+    [SerializeField]
+    GameObject m_objPopupLayer;
+    [SerializeField]
+    GUIItemInventory m_guiItemInventory;
+
+    public void ShowPopupIventory()
+    {
+        Time.timeScale = 0;
+        m_objPopupLayer.SetActive(true);
+        m_guiItemInventory.gameObject.SetActive(true);
+        m_bPopup = true;
+    }
+
+    public void ClosePopupIventory()
+    {
+        Time.timeScale = 1;
+        m_objPopupLayer.SetActive(false);
+        m_guiItemInventory.gameObject.SetActive(false);
+        m_bPopup = false;
+    }
 
     public enum E_GUI_STATE { NONE = -1, TITLE, GAMEOVER, THEEND, PLAY }
 
@@ -137,7 +157,13 @@ public class GameManager : MonoBehaviour
 
                 break;
             case E_GUI_STATE.PLAY:
-
+                if(Input.GetKeyDown(KeyCode.I))
+                {
+                    if (m_bPopup)
+                        ClosePopupIventory();
+                    else
+                        ShowPopupIventory();
+                }
                 break;
         }
     }
@@ -147,12 +173,13 @@ public class GameManager : MonoBehaviour
         SetState((E_GUI_STATE)idx);
     }
 
-    public void EventShowMeTheItems()
+    public ItemIventory EventShowMeTheItems()
     {
         Controller controller = GetPlayeControllers(m_nPlayerIdx);
         Player player = controller.GetPlayer();
         ItemIventory itemIventory = player.GetComponent<ItemIventory>();
         itemIventory.TestIventory(10);
+        return itemIventory;
     }
 
   
@@ -166,6 +193,8 @@ public class GameManager : MonoBehaviour
             m_listItemObject[i].SetItem(m_cItemManager.GetItem(0));
         }
         SetState(m_eGurGUIState);
+        ItemIventory itemIventory = EventShowMeTheItems();
+        m_guiItemInventory.SetIventory(itemIventory);
         Debug.Log("GameManager::Start() 1");
     }
 

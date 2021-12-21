@@ -69,9 +69,11 @@ public class Item
 
 public class ItemManager : MonoBehaviour
 {
-    public enum E_ITEM { HP_POTION, MP_POTION, MAX }
+	public enum E_ITEM { HP_POTION, MP_POTION, MAX }
 	[SerializeField]
-    List<Item> m_listItem = new List<Item>((int)E_ITEM.MAX);
+	List<Item> m_listItem = new List<Item>((int)E_ITEM.MAX);
+
+	public List<Item> ListItems { get{ return m_listItem; } }
 
 	public Item GetItem(int idx)
     {
