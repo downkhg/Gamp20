@@ -48,6 +48,10 @@ public struct Status
 		sResult.nInt = status.nInt - op.nInt;
 		return sResult;
 	}
+	public string ToStatusText()
+    {
+		return string.Format("HP:{0}\nMP:{1}\nStr:{2}\nDef:{1}\nStr:{2}\nDef:{3}\nInt:{0}\n",nHP, nMP, nStr, nDef, nInt);
+    }
 }
 
 [System.Serializable]
@@ -56,14 +60,22 @@ public class Item
 	[SerializeField]
 	string m_strName;
 	[SerializeField]
+	string m_strInfo;
+	[SerializeField]
 	Status m_sStatus;
+	[SerializeField]
+	Sprite m_spriteIcon;
 	public Status ItemStatus { set { m_sStatus = value; } get { return m_sStatus; } }
 	public string Name { get { return m_strName; }  }
+	public string Info { get { return m_strInfo; } }
+	public Sprite Icon { get { return m_spriteIcon; } }
 
-	public Item (string name, Status status)
+	public Item (string name, Status status, string info, string icon)
     {
 		m_sStatus = status;
 		m_strName = name;
+		m_strInfo = info;
+		m_spriteIcon = Resources.Load<Sprite>("Sprite/"+icon);
     }
 }
 
@@ -84,8 +96,8 @@ public class ItemManager : MonoBehaviour
     public void InitItems()
     {
 		Debug.Log("ItemManager::Init() 1");
-		m_listItem.Add(new Item("HP_Potion", new Status(100)));
-		m_listItem.Add(new Item("MP_Potion", new Status(0,100)));
+		m_listItem.Add(new Item("HP_Potion", new Status(100), "Recorvery HP", "HealingPotion"));
+		m_listItem.Add(new Item("MP_Potion", new Status(0,100), "Recorvery MP", "ManaPotion"));
 		Debug.Log("ItemManager::Awalk() 2");
 	}
 }

@@ -10,6 +10,20 @@ public class GUIItemInventory : MonoBehaviour
     [SerializeField]
     GridLayoutGroup m_gridLayoutContent;
 
+    [SerializeField]
+    GUIItemInfo m_guiItemInfo;
+
+    public void ShowItemInfo(Item item)
+    {
+        m_guiItemInfo.Initialize(item);
+        m_guiItemInfo.gameObject.SetActive(true);
+    }
+
+    public void CloseItemInfo()
+    {
+        m_guiItemInfo.gameObject.SetActive(false);
+    }
+
     public void Initialize(int size)
     {
         m_listGuiItemButton = new List<GUIItemButton>(size);
@@ -24,6 +38,9 @@ public class GUIItemInventory : MonoBehaviour
             GameObject objButton = Instantiate(prefabButton, m_gridLayoutContent.transform);
             GUIItemButton guiItemButton = objButton.GetComponent<GUIItemButton>();
             guiItemButton.Initialize(items[i]);
+            Button button = guiItemButton.gameObject.GetComponent<Button>();
+            int idx = i;
+            button.onClick.AddListener(() => ShowItemInfo(items[idx]));
             m_listGuiItemButton.Add(guiItemButton);
         }
         ResizeContent();

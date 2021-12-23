@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour
     GameObject m_objPopupLayer;
     [SerializeField]
     GUIItemInventory m_guiItemInventory;
+ 
 
     public void ShowPopupIventory()
     {
@@ -101,6 +102,7 @@ public class GameManager : MonoBehaviour
         m_guiItemInventory.gameObject.SetActive(false);
         m_bPopup = false;
     }
+
 
     public enum E_GUI_STATE { NONE = -1, TITLE, GAMEOVER, THEEND, PLAY }
 
