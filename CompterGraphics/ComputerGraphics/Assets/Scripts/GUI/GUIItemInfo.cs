@@ -14,7 +14,7 @@ public class GUIItemInfo : MonoBehaviour
 
     public void Initialize(Item item)
     {
-        m_textStatus.text = item.ItemStatus.ToStatusText();
+        m_textStatus.text = item.ItemStatus.ToString();
         m_textInfo.text = item.Info;
         m_imgIcon.sprite = item.Icon; 
     }

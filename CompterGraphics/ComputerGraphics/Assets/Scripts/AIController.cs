@@ -12,7 +12,7 @@ public class AIController : Controller
     {
         do
         {
-            yield return new WaitForSeconds(m_fShotCoolTime);
+            yield return new WaitForSeconds(m_cPlayer.GetGun().ShotCoolTime);
             m_cPlayer.Shot();
         } while (m_curAIState == E_AI_STATE.ATTACK);
     }
@@ -75,11 +75,6 @@ public class AIController : Controller
     float m_fSite;
 
     [SerializeField]
-    float m_fShotDist = 3;
-    [SerializeField]
-    float m_fShotCoolTime = 0.5f;
-
-    [SerializeField]
     GameObject m_objTarget;
     [SerializeField]
     GameObject m_objResponPoint;
@@ -89,7 +84,7 @@ public class AIController : Controller
         return m_objTarget;
     }
 
-    public float ShotDist { get { return m_fShotDist; }  }
+  
 
     public bool ArcColCheak(GameObject target, float angle, Vector3 forward)
     {
@@ -148,7 +143,7 @@ public class AIController : Controller
         {
             foreach (Collider collider in colliders)
             {
-                if (collider.transform.parent != null)
+                if (collider.gameObject.name != m_cPlayer.gameObject.name && collider.transform.parent != null)
                 {
                     if (ArcColCheak(collider.transform.parent.gameObject, 120, transform.forward))
                     {
@@ -173,7 +168,7 @@ public class AIController : Controller
 
         float fDist = (vTargetPos - vPos).magnitude;
 
-        if (fDist > m_fShotDist)
+        if (fDist > m_cPlayer.GetGun().ShotDist)
         {
             if (Vector3.Distance(transform.position, objTarget.transform.position) > Time.deltaTime)
             {
@@ -218,6 +213,6 @@ public class AIController : Controller
     {
         Gizmos.DrawWireSphere(transform.position, m_fSite);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, m_fShotDist);
+        Gizmos.DrawWireSphere(transform.position, m_cPlayer.GetGun().ShotDist);
     }
 }

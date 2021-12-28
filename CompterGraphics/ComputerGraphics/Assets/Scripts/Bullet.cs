@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField]
+    Player m_cMaster;
+    [SerializeField]
     float m_fSpeed = 1;
     [SerializeField]
     bool m_bMove = false;
@@ -17,8 +19,9 @@ public class Bullet : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public void Initialize(float speed, float time)
+    public void Initialize(Player master, float speed, float time)
     {
+        m_cMaster = master;
         m_fSpeed = speed;
         StartCoroutine(ProcessTimmer(time));
         //Destroy(this.gameObject, time);
@@ -30,6 +33,15 @@ public class Bullet : MonoBehaviour
         if (m_bMove)
         {
             transform.Translate(Vector3.forward * m_fSpeed * Time.deltaTime);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag != m_cMaster.gameObject.tag)
+        {
+            Player target = other.GetComponent<Player>();
+            m_cMaster.Attack(target);
         }
     }
 }

@@ -13,16 +13,26 @@ public class Gun : MonoBehaviour
     [SerializeField]
     float m_fDestroyTime;
 
-    public void SetShotDist(float fDist)
+    [SerializeField]
+    float m_fShotDist = 3;
+    [SerializeField]
+    float m_fShotCoolTime = 0.5f;
+
+    public float ShotDist { get { return m_fShotDist; } }
+    public float ShotCoolTime { get { return m_fShotCoolTime; } }
+
+    public void SetShotDist()
     {
-        m_fDestroyTime = fDist / m_fShotSpeed;
+        m_fDestroyTime = m_fShotDist / m_fShotSpeed;
     }
 
-    public void Shot(GameObject target)
+    public void Shot(Player master, GameObject target)
     {
+        SetShotDist();
         GameObject objBullet = Instantiate(m_prefabBullet, m_transMozzle.position, Quaternion.identity);
-        objBullet.transform.LookAt(target.transform);
+        if (target) objBullet.transform.LookAt(target.transform);
+        else objBullet.transform.LookAt(m_transMozzle.position + transform.forward);
         Bullet bullet = objBullet.GetComponent<Bullet>();
-        bullet.Initialize(m_fShotSpeed, m_fDestroyTime);
+        bullet.Initialize(master, m_fShotSpeed, m_fDestroyTime);
     }
 }

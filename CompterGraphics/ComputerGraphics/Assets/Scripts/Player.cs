@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
+    Status m_sStatus;
+    [SerializeField]
     ItemIventory m_cItemIventory;
     [SerializeField]
     Gun m_cGun;
@@ -12,6 +14,17 @@ public class Player : MonoBehaviour
     float m_fSpeed;
     [SerializeField]
     float m_fAngleSpeed;
+
+    public Status PlayerStatus
+    {
+        get{ return m_sStatus; }
+        set { m_sStatus = value; }
+    }
+
+    public void Attack(Player taget)
+    {
+        taget.m_sStatus.nHP -= m_sStatus.nStr - m_sStatus.nDef;
+    }
 
     public ItemIventory GetInventory()
     {
@@ -35,8 +48,10 @@ public class Player : MonoBehaviour
     public void Shot()
     {
         AIController cAIController = transform.parent.GetComponent<AIController>();
-        m_cGun.SetShotDist(cAIController.ShotDist);
-        m_cGun.Shot(cAIController.GetTarget());
+        if(cAIController)
+            m_cGun.Shot(this, cAIController.GetTarget());
+        else
+            m_cGun.Shot(this,null);
     }
 
     private void Awake()
@@ -88,6 +103,13 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+    [SerializeField]
+    int m_nGUIIdx = 0;
+    private void OnGUI()
+    {
+        float w = 100; float h = 50;
+        GUI.Box(new Rect(0, h*m_nGUIIdx, 100, 50), m_sStatus.ToString());
     }
 
     ////충돌체크 콜백함수는 리지드바디가 있는 대상에서만 사용가능하다. 그러므로 이런 경우 플레이어 측에서 충돌체크가 작동하지않을수있다.

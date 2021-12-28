@@ -6,6 +6,22 @@ public class PlayerController : Controller
 {
     [SerializeField]
     Transform m_transGrab;
+    [SerializeField]
+    float m_fCurTime = -1;
+
+    public bool ProcessTimemer(float maxtime)
+    {
+        if(m_fCurTime >= 0)
+        {
+            if (m_fCurTime <= maxtime)
+            {
+                m_fCurTime += Time.deltaTime;
+                return true;
+            }
+        }
+        m_fCurTime = -1;
+        return false;
+    }
 
     public Transform GrabPoint
     {
@@ -33,9 +49,16 @@ public class PlayerController : Controller
         if (Input.GetKey(KeyCode.LeftArrow))
             RotateProcess(Vector3.down,m_cPlayer.AngleSpeed);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        bool isCoolTime = ProcessTimemer(m_cPlayer.GetGun().ShotCoolTime);
+
+        if (isCoolTime == false)
         {
-            m_cPlayer.Shot();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                //if(m_cPlayer.GetGun().Get)
+                m_cPlayer.Shot();
+                m_fCurTime = 0;
+            }
         }
     }
 }

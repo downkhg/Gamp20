@@ -48,7 +48,7 @@ public struct Status
 		sResult.nInt = status.nInt - op.nInt;
 		return sResult;
 	}
-	public string ToStatusText()
+	public override string ToString()
     {
 		return string.Format("HP:{0}\nMP:{1}\nStr:{2}\nDef:{1}\nStr:{2}\nDef:{3}\nInt:{0}\n",nHP, nMP, nStr, nDef, nInt);
     }
