@@ -15,6 +15,23 @@ public class Player : MonoBehaviour
     [SerializeField]
     float m_fAngleSpeed;
 
+    [SerializeField]
+    int m_nMaxHP;
+    [SerializeField]
+    int m_nMaxMP;
+    [SerializeField]
+    int m_nLv;
+    [SerializeField]
+    int m_nExp;
+    [SerializeField]
+    int m_nMaxExp;
+
+    public int MaxHP { get { return m_nMaxHP; } }
+    public int MaxMP { get { return m_nMaxHP; } }
+    public int MaxExp { get { return m_nMaxExp; } }
+    public int Exp { get { return m_nExp; } }
+    public int Lv { get { return m_nLv; } }
+
     public Status PlayerStatus
     {
         get{ return m_sStatus; }
@@ -24,6 +41,15 @@ public class Player : MonoBehaviour
     public void Attack(Player taget)
     {
         taget.m_sStatus.nHP -= m_sStatus.nStr - m_sStatus.nDef;
+    }
+
+    public void LvUp()
+    {
+        if(m_nExp <= m_nMaxExp)
+        {
+            m_sStatus += 10;
+            m_nLv++;
+        }
     }
 
     public ItemIventory GetInventory()

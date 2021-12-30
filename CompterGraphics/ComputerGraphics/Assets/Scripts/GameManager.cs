@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     List<PlayerController> m_listPlayerControllers;
     [SerializeField]
     int m_nPlayerIdx = 0;
+    [SerializeField]
+    Camera m_cMainCamera;
 
     public int PlayerIdx { get { return m_nPlayerIdx; } set { m_nPlayerIdx = value; } }
         
@@ -86,7 +88,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GUIItemInventory m_guiItemInventory;
  
-
     public void ShowPopupIventory()
     {
         Time.timeScale = 0;
@@ -111,7 +112,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     E_GUI_STATE m_eGurGUIState;
 
-    
+    [SerializeField]
+    GUIPlayerInfo m_guiPlayerInfo;
 
     void ShowGUIScenes(int idx)
     {
@@ -124,7 +126,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void SetState(E_GUI_STATE state)
+    void SetGUIState(E_GUI_STATE state)
     {
         switch(state)
         {
@@ -145,7 +147,7 @@ public class GameManager : MonoBehaviour
         m_eGurGUIState = state;
     }
 
-    void UpdateState()
+    void UpdateGUIState()
     {
         switch (m_eGurGUIState)
         {
@@ -159,12 +161,21 @@ public class GameManager : MonoBehaviour
 
                 break;
             case E_GUI_STATE.PLAY:
-                if(Input.GetKeyDown(KeyCode.I))
                 {
-                    if (m_bPopup)
-                        ClosePopupIventory();
-                    else
-                        ShowPopupIventory();
+                    if (Input.GetKeyDown(KeyCode.I))
+                    {
+                        if (m_bPopup)
+                            ClosePopupIventory();
+                        else
+                            ShowPopupIventory();
+                    }
+
+                    PlayerController playerController = GetPlayeControllers(m_nPlayerIdx);
+
+                    Vector3 v2DPos = m_cMainCamera.WorldToScreenPoint(playerController.transform.position);
+                    m_guiPlayerInfo.transform.position = v2DPos;
+
+                    m_guiPlayerInfo.UpdataPlayerStatus(playerController);
                 }
                 break;
         }
@@ -172,7 +183,7 @@ public class GameManager : MonoBehaviour
 
     public void EventGUIState(int idx)
     {
-        SetState((E_GUI_STATE)idx);
+        SetGUIState((E_GUI_STATE)idx);
     }
 
     public ItemIventory EventShowMeTheItems()
@@ -194,7 +205,7 @@ public class GameManager : MonoBehaviour
         {
             m_listItemObject[i].SetItem(m_cItemManager.GetItem(0));
         }
-        SetState(m_eGurGUIState);
+        SetGUIState(m_eGurGUIState);
         ItemIventory itemIventory = EventShowMeTheItems();
         m_guiItemInventory.SetIventory(itemIventory);
         Debug.Log("GameManager::Start() 1");
@@ -202,7 +213,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        UpdateState();
+        UpdateGUIState();
     }
 
     private void FixedUpdate()

@@ -71,6 +71,8 @@
     <Compile Include="Assets\Scripts\GUI\GUIItemButton.cs" />
     <Compile Include="Assets\Scripts\GUI\GUIItemInfo.cs" />
     <Compile Include="Assets\Scripts\GUI\GUIItemInventory.cs" />
+    <Compile Include="Assets\Scripts\GUI\GUIPlayerInfo.cs" />
+    <Compile Include="Assets\Scripts\GUI\GUIStatusBar.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Gun.cs" />
     <Compile Include="Assets\Scripts\ItemIventory.cs" />
