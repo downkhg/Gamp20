@@ -42,6 +42,8 @@ public class MeshInfo : MonoBehaviour {
         Quaternion quaternion = transform.localRotation;
         Vector3 scale = transform.localScale;
 
+        Matrix4x4 matTransform = transform.localToWorldMatrix;
+
         for (int i = 0; i < m_mesh.subMeshCount; i++)
         {
             int[] indices = m_mesh.GetIndices(i);
@@ -54,9 +56,13 @@ public class MeshInfo : MonoBehaviour {
             Vector3 vB = m_mesh.vertices[b];
             Vector3 vC = m_mesh.vertices[c];
 
-            vA = quaternion * vA;
-            vB = quaternion * vB;
-            vC = quaternion * vC;
+            //vA = quaternion * vA;
+            //vB = quaternion * vB;
+            //vC = quaternion * vC;
+
+            vA = matTransform.MultiplyPoint(vA);
+            vB = matTransform.MultiplyPoint(vB);
+            vC = matTransform.MultiplyPoint(vC);
 
             //vA += pos;
             //vB += pos;
@@ -70,6 +76,25 @@ public class MeshInfo : MonoBehaviour {
             Plane plane = new Plane(vA, vB, vC);
 
             Gizmos.DrawLine(pos, pos + plane.normal);
+
+            Gizmos.color = Color.blue;
+
+            Gizmos.DrawLine(vA, vB);
+            Gizmos.DrawLine(vB, vC);
+            Gizmos.DrawLine(vC, vA);
+
+            //월드행렬에 역행렬을 구함
+            Matrix4x4 matInverse = matTransform.inverse;
+            //월드포지션에 역행렬을 곱해 다시 로컬행렬로 변환
+            vA = matInverse.MultiplyPoint(vA);
+            vB = matInverse.MultiplyPoint(vB);
+            vC = matInverse.MultiplyPoint(vC);
+
+            Gizmos.color = Color.green;
+
+            Gizmos.DrawLine(vA, vB);
+            Gizmos.DrawLine(vB, vC);
+            Gizmos.DrawLine(vC, vA);
         }
     }
 

@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     ItemManager m_cItemManager;
     [SerializeField]
+    Dictionary<string, PlayerController> m_dicPlayerController = new Dictionary<string, PlayerController>();
+    [SerializeField]
+    string m_strID;
+    [SerializeField]
     List<PlayerController> m_listPlayerControllers;
     [SerializeField]
     int m_nPlayerIdx = 0;
@@ -29,10 +33,24 @@ public class GameManager : MonoBehaviour
     {
         get { return m_listPlayerControllers; }
     }
+
+    public int NPlayerIdx { get => m_nPlayerIdx; set => m_nPlayerIdx = value; }
+    public GUIManager CGUIManager { get => m_cGUIManager; set => m_cGUIManager = value; }
+    public string StrID { get => m_strID; set => m_strID = value; }
+    public Dictionary<string, PlayerController> DicPlayerController { get => m_dicPlayerController; set => m_dicPlayerController = value; }
+
+    public PlayerController GetCurrentPlayerControllers()
+    {
+        return m_listPlayerControllers[m_nPlayerIdx];
+    }
     public PlayerController GetPlayeControllers(int idx)
     {
         return m_listPlayerControllers[idx];
     }
+
+    [SerializeField]
+    GUIManager m_cGUIManager;
+
     //싱글톤기법: 객체는 원래 1개만 생성되로록 규칙이 정해져있어야하지만,
     //인스펙터사용등 편리함을 이유로 유니티에서 느슨한 규칙을 적용한것임.
     static GameManager m_cInstance;
@@ -81,111 +99,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    bool m_bPopup;
-    [SerializeField]
-    GameObject m_objPopupLayer;
-    [SerializeField]
-    GUIItemInventory m_guiItemInventory;
- 
-    public void ShowPopupIventory()
-    {
-        Time.timeScale = 0;
-        m_objPopupLayer.SetActive(true);
-        m_guiItemInventory.gameObject.SetActive(true);
-        m_bPopup = true;
-    }
-
-    public void ClosePopupIventory()
-    {
-        Time.timeScale = 1;
-        m_objPopupLayer.SetActive(false);
-        m_guiItemInventory.gameObject.SetActive(false);
-        m_bPopup = false;
-    }
-
-
-    public enum E_GUI_STATE { NONE = -1, TITLE, GAMEOVER, THEEND, PLAY }
-
-    [SerializeField]
-    List<GameObject> m_listGUIScenes;
-    [SerializeField]
-    E_GUI_STATE m_eGurGUIState;
-
-    [SerializeField]
-    GUIPlayerInfo m_guiPlayerInfo;
-
-    void ShowGUIScenes(int idx)
-    {
-        for(int i = 0;  i < m_listGUIScenes.Count; i++)
-        {
-            if(i == idx)
-                m_listGUIScenes[i].SetActive(true);
-            else
-                m_listGUIScenes[i].SetActive(false);
-        }
-    }
-
-    void SetGUIState(E_GUI_STATE state)
-    {
-        switch(state)
-        {
-            case E_GUI_STATE.TITLE:
-                Time.timeScale = 0;
-                break;
-            case E_GUI_STATE.GAMEOVER:
-                Time.timeScale = 0;
-                break;
-            case E_GUI_STATE.THEEND:
-                Time.timeScale = 0;
-                break;
-            case E_GUI_STATE.PLAY:
-                Time.timeScale = 1;
-                break;
-        }
-        ShowGUIScenes((int)state);
-        m_eGurGUIState = state;
-    }
-
-    void UpdateGUIState()
-    {
-        switch (m_eGurGUIState)
-        {
-            case E_GUI_STATE.TITLE:
-                
-                break;
-            case E_GUI_STATE.GAMEOVER:
-
-                break;
-            case E_GUI_STATE.THEEND:
-
-                break;
-            case E_GUI_STATE.PLAY:
-                {
-                    if (Input.GetKeyDown(KeyCode.I))
-                    {
-                        if (m_bPopup)
-                            ClosePopupIventory();
-                        else
-                            ShowPopupIventory();
-                    }
-
-                    PlayerController playerController = GetPlayeControllers(m_nPlayerIdx);
-
-                    Vector3 v2DPos = m_cMainCamera.WorldToScreenPoint(playerController.transform.position);
-                    m_guiPlayerInfo.transform.position = v2DPos;
-
-                    m_guiPlayerInfo.UpdataPlayerStatus(playerController);
-                }
-                break;
-        }
-    }
-
-    public void EventGUIState(int idx)
-    {
-        SetGUIState((E_GUI_STATE)idx);
-    }
-
     public ItemIventory EventShowMeTheItems()
     {
         Controller controller = GetPlayeControllers(m_nPlayerIdx);
@@ -195,6 +108,21 @@ public class GameManager : MonoBehaviour
         return itemIventory;
     }
 
+    public void Event3DStatusInfoUpdate(GUIPlayerInfo guiPlayerInfo)
+    {
+        PlayerController playerController = GetCurrentPlayerControllers();
+        Vector3 v2DPos = m_cMainCamera.WorldToScreenPoint(playerController.transform.position);
+        guiPlayerInfo.transform.position = v2DPos;
+        guiPlayerInfo.UpdataPlayerStatus(playerController);
+    }
+
+    public void EventCreatePlayerController(string id)
+    {
+        GameObject prefabsPlayerContller = Resources.Load("Prefabs/PlayerController") as GameObject;
+        GameObject objPlayerContller = Instantiate(prefabsPlayerContller);
+        PlayerController playerController = objPlayerContller.GetComponent<PlayerController>();
+        m_dicPlayerController.Add(id,playerController);
+    }
   
     // Start is called before the first frame update
     void Start()
@@ -205,15 +133,16 @@ public class GameManager : MonoBehaviour
         {
             m_listItemObject[i].SetItem(m_cItemManager.GetItem(0));
         }
-        SetGUIState(m_eGurGUIState);
+        m_cGUIManager.Initialize(this);
         ItemIventory itemIventory = EventShowMeTheItems();
-        m_guiItemInventory.SetIventory(itemIventory);
+        m_cGUIManager.SetGUIIventory(itemIventory);
+        EventCreatePlayerController(m_strID);
         Debug.Log("GameManager::Start() 1");
     }
 
     private void Update()
     {
-        UpdateGUIState();
+        
     }
 
     private void FixedUpdate()
